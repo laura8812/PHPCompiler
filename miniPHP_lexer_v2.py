@@ -1,388 +1,138 @@
 import ply.lex as lex
-import sys
 
-#Tokens list
-tokens = (
-    # ===== Palabras reservadas =====
-    "PHP_OPEN",
-    "PHP_CLOSE",
-    "IF",
-    "ELSE",
-    "ELSEIF",
-    "ENDIF",
-    "SWITCH",
-    "CASE",
-    "BRAKE",
-    "DEFAULT",
-    "FOREACH",
-    "AS",
-    "FOR",
-    "ENDFOR",
-    "ENDFOREACH",
-    "WHILE",
-    "ENDWHILE",
-    "DO",
-    "FUNCTION",
-    "RETURN",
-    "GLOBAL",
-    "STATIC",
-    "TRY",
-    "CATCH",
-    "FINALLY",
-    "THROW",
-    "ECHO",
-    "PRINT",
-    "EMPTY",
-    "ARRAY",
-    "LIST",
-    "BOOLEAN",
+# ==================================================
+# LISTA DE TOKENS
+# ==================================================
+tokens = [
+    # Tipos de datos y valores
+    'NUMBER', 'STRING', 'BOOLEAN',
 
-    # ===== Palabras reservadas modernas y constantes mágicas =====
-    "CLASS",
-    "NAMESPACE",
-    "USE",
-    "PUBLIC",
-    "PRIVATE",
-    "PROTECTED",
-    "EXTENDS",
-    "IMPLEMENTS",
-    "YIELD",
-    "MATCH",
-    "ENUM",
-    "DIR_CONST",
-    "FILE_CONST",
-    "LINE_CONST",
-    "FUNCTION_CONST",
-    "METHOD_CONST",
-    "NAMESPACE_CONST",
+    # Identificadores y variables
+    'VARIABLE', 'ID',
 
-    # ===== Operadores y símbolos =====
-    "PLUSEQUAL",          # +=
-    "MINUSEQUAL",         # -=
-    "INCREMENT",          # ++
-    "DECREMENT",          # --
-    "ARROW",              # ->
-    "DOUBLECOLON",        # ::
-    "DOUBLEARROW",        # =>
-    "SEMICOLON",          # ;
-    "LBRACKET",           # [
-    "RBRACKET",           # ]
-    "LBLOCK",             # {
-    "RBLOCK",             # }
-    "LPAREN",             # (
-    "RPAREN",             # )
-    "COMMA",              # ,
-    "PLUS",               # +
-    "MINUS",              # -
-    "TIMES",              # *
-    "MODULE",             # %
-    "EQUAL",              # =
-    "LESSTHAN",           # <
-    "GREATERTHAN",        # >
-    "LESSEQUAL",          # <=
-    "GREATERTHANEQUAL",   # >=
-    "ISEQUAL",            # ==
-    "NOTISEQUAL",         # !=
-    "AND",                # &&
-    "OR",                 # ||
-    "DOT",                # .
+    # Operadores aritméticos y lógicos
+    'PLUS', 'MINUS', 'TIMES', 'MODULE',
+    'EQUAL',
+    'ISEQUAL', 'NOTISEQUAL',
+    'LESSTHAN', 'GREATERTHAN', 'LESSEQUAL', 'GREATERTHANEQUAL',
+    'AND', 'OR',
 
-    # ===== Identificadores y literales =====
-    "VARIABLE",
-    "VARVAR",
-    "STRING",
-    "NUMBER",
-    "ID",
-)
+    # Incrementos / Decrementos
+    'INCREMENT', 'DECREMENT',
 
+    # Concatenación
+    'DOT',
 
+    # Delimitadores
+    'LPAREN', 'RPAREN',
+    'LBLOCK', 'RBLOCK',
+    'SEMICOLON', 'COMMA',
 
+    # Apertura y cierre de PHP
+    'PHP_OPEN', 'PHP_CLOSE',
 
+    # Palabras clave
+    'IF', 'ELSE', 'FOR', 'WHILE',
+    'FUNCTION', 'RETURN',
+    'ECHO', 'PRINT'
+]
 
-# Palabras reservadas modernas y constantes mágicas
-def t_CLASS(t):
-    r'class'
-    return t
+# ==================================================
+# PALABRAS RESERVADAS
+# ==================================================
+reserved = {
+    'if': 'IF',
+    'else': 'ELSE',
+    'for': 'FOR',
+    'while': 'WHILE',
+    'function': 'FUNCTION',
+    'return': 'RETURN',
+    'echo': 'ECHO',
+    'print': 'PRINT',
+    'true': 'BOOLEAN',
+    'false': 'BOOLEAN'
+}
 
-def t_NAMESPACE(t):
-    r'namespace'
-    return t
+# ==================================================
+# REGLAS DE TOKENS
+# ==================================================
 
-def t_USE(t):
-    r'use'
-    return t
+# Operadores
+t_PLUS              = r'\+'
+t_MINUS             = r'-'
+t_TIMES             = r'\*'
+t_MODULE            = r'%'
+t_EQUAL             = r'='
+t_ISEQUAL           = r'=='
+t_NOTISEQUAL        = r'!='
+t_LESSTHAN          = r'<'
+t_GREATERTHAN       = r'>'
+t_LESSEQUAL         = r'<='
+t_GREATERTHANEQUAL  = r'>='
+t_AND               = r'&&'
+t_OR                = r'\|\|'
+t_INCREMENT         = r'\+\+'
+t_DECREMENT         = r'--'
+t_DOT               = r'\.'  # 👈 operador de concatenación en PHP
 
-def t_PUBLIC(t):
-    r'public'
-    return t
-
-def t_PRIVATE(t):
-    r'private'
-    return t
-
-def t_PROTECTED(t):
-    r'protected'
-    return t
-
-def t_EXTENDS(t):
-    r'extends'
-    return t
-
-def t_IMPLEMENTS(t):
-    r'implements'
-    return t
-
-def t_YIELD(t):
-    r'yield'
-    return t
-
-def t_MATCH(t):
-    r'match'
-    return t
-
-def t_ENUM(t):
-    r'enum'
-    return t
-
-def t_DIR_CONST(t):
-    r'__DIR__'
-    return t
-
-def t_FILE_CONST(t):
-    r'__FILE__'
-    return t
-
-def t_LINE_CONST(t):
-    r'__LINE__'
-    return t
-
-def t_FUNCTION_CONST(t):
-    r'__FUNCTION__'
-    return t
-
-def t_METHOD_CONST(t):
-    r'__METHOD__'
-    return t
-
-def t_NAMESPACE_CONST(t):
-    r'__NAMESPACE__'
-    return t
-t_PLUSEQUAL = r'\+='  # +=
-t_MINUSEQUAL = r'-='   # -=
-t_INCREMENT = r'\+\+' # ++
-t_DECREMENT = r'--'    # --
-t_ARROW = r'->'        # ->
-t_DOUBLECOLON = r'::'  # ::
-t_DOUBLEARROW = r'=>'  # =>
-
+# Delimitadores
+t_LPAREN    = r'\('
+t_RPAREN    = r'\)'
+t_LBLOCK    = r'\{'
+t_RBLOCK    = r'\}'
 t_SEMICOLON = r';'
-t_LBRACKET = r'\['
-t_RBRACKET = r'\]'
-t_LBLOCK = r'{'
-t_RBLOCK = r'}'
-t_LPAREN = r'\('
-t_RPAREN = r'\)'
-t_COMMA = r','
-t_PLUS   = r'\+'
-t_MINUS  = r'-'
-t_TIMES  = r'\*'
-t_MODULE = r'\%'
-t_EQUAL = r'='
-t_LESSTHAN = r'<'
-t_GREATERTHAN = r'>'
-t_LESSEQUAL = r'<='
-t_GREATERTHANEQUAL = r'>='
-t_ISEQUAL = r'=='
-t_NOTISEQUAL = r'!='
-t_AND = r'&&'
-t_OR = r'\|\|'
-t_DOT = r'\.'
+t_COMMA     = r','
 
+# Apertura y cierre PHP
+t_PHP_OPEN  = r'<\?php'
+t_PHP_CLOSE = r'\?>'
 
+# ==================================================
+# TOKENS CON FUNCIONES
+# ==================================================
 
-def t_STRING(t):
-    r'("([^\\\n]|(\\.))*?"|\'([^\\\n]|(\\.))*?\')'
+# Variables PHP ($variable)
+def t_VARIABLE(t):
+    r'\$[a-zA-Z_][a-zA-Z0-9_]*'
     return t
 
+# Identificadores (funciones, nombres sin $)
+def t_ID(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = reserved.get(t.value, 'ID')
+    return t
+
+# Números
+def t_NUMBER(t):
+    r'\d+(\.\d+)?'
+    t.value = float(t.value) if '.' in t.value else int(t.value)
+    return t
+
+# Cadenas de texto
+def t_STRING(t):
+    r'(\"([^\\\"]|\\.)*\")|(\'([^\\\']|\\.)*\')'
+    t.value = t.value[1:-1]
+    return t
+
+# Comentarios (se ignoran)
+def t_COMMENT(t):
+    r'(\#.*|//.*|/\*(.|\n)*?\*/)'
+    pass
+
+# Ignorar espacios y tabulaciones
 t_ignore = ' \t'
 
-def t_PHP_OPEN(t):
-    r'\<\?php'
-    return t
-
-def t_PHP_CLOSE(t):
-    r'\?>'
-    return t
-
-def t_IF(t):
-    r'if'
-    return t
-
-def t_ELSE(t):
-    r'else'
-    return t
-
-def t_ELSEIF(t):
-    r'elseif'
-    return t
-
-def t_ENDIF(t):
-    r'endif'
-    return t
-
-def t_FUNCTION(t):
-    r'function'
-    return t
-
-def t_SWITCH(t):
-    r'switch'
-    return t
-
-def t_CASE(t):
-    r'case'
-    return t
-
-def t_VARIABLE(t):
-    r'\$[a-zA-Z_][\w]*' 
-    return t
-
-def t_VARVAR(t):
-    r'\${2}[a-zA-Z_][\w]*'
-    return t
-
-# Regla para cualquier uso inválido de $ (incluye $ suelto, $ con espacio, $ con número, etc.)
-def t_INVALID_VARIABLE(t):
-    r'\$[^a-zA-Z_]\S*'
-    print(f"Lexical error: Invalid variable usage '{t.value}' at line {t.lineno}")
-    t.lexer.skip(len(t.value))
-
-def t_FOREACH(t):
-    r'foreach'
-    return t
-
-def t_AS(t):
-    r'as'
-    return t
-
-def t_ENDFOREACH(t):
-    r'endforeach'
-    return t
-
-def t_WHILE(t): 
-    r'while'
-    return t
-
-def t_ENDWHILE(t):
-    r'endwhile'
-    return t
-
-def t_DO(t):
-    r'do'
-    return t
-
-def t_RETURN(t):
-    r'return'
-    return t
-
-def t_GLOBAL(t):
-    r'global'
-    return t
-
-def t_STATIC(t):
-    r'static'
-    return t    
-
-def t_TRY(t):
-    r'try'
-    return t
-
-def t_CATCH(t):
-    r'catch'
-    return t
-
-def t_FINALLY(t):
-    r'finally'
-    return t
-
-def t_THROW(t):
-    r'throw'
-    return t
-
-def t_ECHO(t):
-    r'echo'
-    return t
-
-def t_PRINT(t):
-    r'print'
-    return t
-
-def t_EMPTY(t):
-    r'empty'
-    return t
-
-def t_ARRAY(t):
-    r'array'
-    return t
-
-def t_LIST(t):
-    r'list'
-    return t
-
-def t_NEWLINE(t):
+# Contador de líneas
+def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-def t_comments(t):
-    r'/\*(.|\n)*?\*/'
-    t.lexer.lineno += t.value.count('\n')
-
-def t_comments_C99(t):
-    r'//(.)*?\n'
-    t.lexer.lineno += 1
-
-def t_comments_hashtag(t):
-    r'\#(.)*?\n'
-    t.lexer.lineno += 1
-
-def t_BOOLEAN(t):
-    r'true|false'
-    return t
-
-
-# Soporte para números decimales, hexadecimales, binarios y octales
-def t_NUMBER(t):
-    r'\d+(\.\d+)?((E|e)(\-)?\d+(\.\d+)?)?'
-    return t
-
-
-
-def t_ID(t):
-     r'(_|[a-z]|[A-Z])(\w)*'
-     return t
-
+# Manejo de errores léxicos
 def t_error(t):
-    print ("Lexical error: " + str(t.value[0]))
+    print(f"❌ Caracter ilegal '{t.value[0]}' en la línea {t.lexer.lineno}")
     t.lexer.skip(1)
 
-def test(data, lexer):
-	lexer.input(data)
-	while True:
-		tok = lexer.token()
-		if not tok:
-			break
-		print (tok)
-
+# ==================================================
+# CONSTRUCCIÓN DEL LÉXICO
+# ==================================================
 lexer = lex.lex()
-
- 
-if __name__ == '__main__':
-	if (len(sys.argv) > 1):
-		fin = sys.argv[1]
-	else:
-		fin = 'basic.php'
-	f = open(fin, 'r')
-	data = f.read()
-	print (data)
-	lexer.input(data)
-	test(data, lexer)
-

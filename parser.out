@@ -1,0 +1,3793 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> program
+Rule 1     program -> statement_list
+Rule 2     statement_list -> statement_list statement
+Rule 3     statement_list -> statement
+Rule 4     statement -> expression SEMICOLON
+Rule 5     statement -> if_statement
+Rule 6     statement -> for_statement
+Rule 7     statement -> while_statement
+Rule 8     statement -> function_declaration
+Rule 9     statement -> echo_statement
+Rule 10    statement -> print_statement
+Rule 11    statement -> RETURN expression SEMICOLON
+Rule 12    statement -> PHP_OPEN statement_list PHP_CLOSE
+Rule 13    if_statement -> IF LPAREN expression RPAREN statement
+Rule 14    if_statement -> IF LPAREN expression RPAREN statement ELSE statement
+Rule 15    for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+Rule 16    while_statement -> WHILE LPAREN expression RPAREN statement
+Rule 17    echo_statement -> ECHO expression SEMICOLON
+Rule 18    print_statement -> PRINT expression SEMICOLON
+Rule 19    function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+Rule 20    parameter_list -> parameter_list COMMA VARIABLE
+Rule 21    parameter_list -> VARIABLE
+Rule 22    parameter_list -> empty
+Rule 23    expression -> ID LPAREN argument_list RPAREN
+Rule 24    expression -> VARIABLE LPAREN argument_list RPAREN
+Rule 25    argument_list -> argument_list COMMA expression
+Rule 26    argument_list -> expression
+Rule 27    argument_list -> empty
+Rule 28    expression -> expression PLUS expression
+Rule 29    expression -> expression MINUS expression
+Rule 30    expression -> expression TIMES expression
+Rule 31    expression -> expression MODULE expression
+Rule 32    expression -> expression DOT expression
+Rule 33    expression -> expression ISEQUAL expression
+Rule 34    expression -> expression NOTISEQUAL expression
+Rule 35    expression -> expression GREATERTHAN expression
+Rule 36    expression -> expression LESSTHAN expression
+Rule 37    expression -> expression GREATERTHANEQUAL expression
+Rule 38    expression -> expression LESSEQUAL expression
+Rule 39    expression -> expression AND expression
+Rule 40    expression -> expression OR expression
+Rule 41    expression -> MINUS expression
+Rule 42    expression -> VARIABLE INCREMENT
+Rule 43    expression -> VARIABLE DECREMENT
+Rule 44    expression -> LPAREN expression RPAREN
+Rule 45    expression -> NUMBER
+Rule 46    expression -> VARIABLE
+Rule 47    expression -> STRING
+Rule 48    expression -> BOOLEAN
+Rule 49    expression -> VARIABLE EQUAL expression
+Rule 50    empty -> <empty>
+
+Terminals, with rules where they appear
+
+AND                  : 39
+BOOLEAN              : 48
+COMMA                : 20 25
+DECREMENT            : 43
+DOT                  : 32
+ECHO                 : 17
+ELSE                 : 14
+EQUAL                : 49
+FOR                  : 15
+FUNCTION             : 19
+GREATERTHAN          : 35
+GREATERTHANEQUAL     : 37
+ID                   : 19 23
+IF                   : 13 14
+INCREMENT            : 42
+ISEQUAL              : 33
+LBLOCK               : 19
+LESSEQUAL            : 38
+LESSTHAN             : 36
+LPAREN               : 13 14 15 16 19 23 24 44
+MINUS                : 29 41
+MODULE               : 31
+NOTISEQUAL           : 34
+NUMBER               : 45
+OR                   : 40
+PHP_CLOSE            : 12
+PHP_OPEN             : 12
+PLUS                 : 28
+PRINT                : 18
+RBLOCK               : 19
+RETURN               : 11
+RPAREN               : 13 14 15 16 19 23 24 44
+SEMICOLON            : 4 11 15 15 17 18
+STRING               : 47
+TIMES                : 30
+VARIABLE             : 20 21 24 42 43 46 49
+WHILE                : 16
+error                : 
+
+Nonterminals, with rules where they appear
+
+argument_list        : 23 24 25
+echo_statement       : 9
+empty                : 22 27
+expression           : 4 11 13 14 15 15 15 16 17 18 25 26 28 28 29 29 30 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37 38 38 39 39 40 40 41 44 49
+for_statement        : 6
+function_declaration : 8
+if_statement         : 5
+parameter_list       : 19 20
+print_statement      : 10
+program              : 0
+statement            : 2 3 13 14 14 15 16
+statement_list       : 1 2 12 19
+while_statement      : 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . program
+    (1) program -> . statement_list
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    program                        shift and go to state 1
+    statement_list                 shift and go to state 2
+    statement                      shift and go to state 3
+    expression                     shift and go to state 4
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 1
+
+    (0) S' -> program .
+
+
+
+state 2
+
+    (1) program -> statement_list .
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    $end            reduce using rule 1 (program -> statement_list .)
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    statement                      shift and go to state 26
+    expression                     shift and go to state 4
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 3
+
+    (3) statement_list -> statement .
+
+    RETURN          reduce using rule 3 (statement_list -> statement .)
+    PHP_OPEN        reduce using rule 3 (statement_list -> statement .)
+    ID              reduce using rule 3 (statement_list -> statement .)
+    VARIABLE        reduce using rule 3 (statement_list -> statement .)
+    MINUS           reduce using rule 3 (statement_list -> statement .)
+    LPAREN          reduce using rule 3 (statement_list -> statement .)
+    NUMBER          reduce using rule 3 (statement_list -> statement .)
+    STRING          reduce using rule 3 (statement_list -> statement .)
+    BOOLEAN         reduce using rule 3 (statement_list -> statement .)
+    IF              reduce using rule 3 (statement_list -> statement .)
+    FOR             reduce using rule 3 (statement_list -> statement .)
+    WHILE           reduce using rule 3 (statement_list -> statement .)
+    FUNCTION        reduce using rule 3 (statement_list -> statement .)
+    ECHO            reduce using rule 3 (statement_list -> statement .)
+    PRINT           reduce using rule 3 (statement_list -> statement .)
+    $end            reduce using rule 3 (statement_list -> statement .)
+    PHP_CLOSE       reduce using rule 3 (statement_list -> statement .)
+    RBLOCK          reduce using rule 3 (statement_list -> statement .)
+
+
+state 4
+
+    (4) statement -> expression . SEMICOLON
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       shift and go to state 27
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 5
+
+    (5) statement -> if_statement .
+
+    RETURN          reduce using rule 5 (statement -> if_statement .)
+    PHP_OPEN        reduce using rule 5 (statement -> if_statement .)
+    ID              reduce using rule 5 (statement -> if_statement .)
+    VARIABLE        reduce using rule 5 (statement -> if_statement .)
+    MINUS           reduce using rule 5 (statement -> if_statement .)
+    LPAREN          reduce using rule 5 (statement -> if_statement .)
+    NUMBER          reduce using rule 5 (statement -> if_statement .)
+    STRING          reduce using rule 5 (statement -> if_statement .)
+    BOOLEAN         reduce using rule 5 (statement -> if_statement .)
+    IF              reduce using rule 5 (statement -> if_statement .)
+    FOR             reduce using rule 5 (statement -> if_statement .)
+    WHILE           reduce using rule 5 (statement -> if_statement .)
+    FUNCTION        reduce using rule 5 (statement -> if_statement .)
+    ECHO            reduce using rule 5 (statement -> if_statement .)
+    PRINT           reduce using rule 5 (statement -> if_statement .)
+    $end            reduce using rule 5 (statement -> if_statement .)
+    PHP_CLOSE       reduce using rule 5 (statement -> if_statement .)
+    ELSE            reduce using rule 5 (statement -> if_statement .)
+    RBLOCK          reduce using rule 5 (statement -> if_statement .)
+
+
+state 6
+
+    (6) statement -> for_statement .
+
+    RETURN          reduce using rule 6 (statement -> for_statement .)
+    PHP_OPEN        reduce using rule 6 (statement -> for_statement .)
+    ID              reduce using rule 6 (statement -> for_statement .)
+    VARIABLE        reduce using rule 6 (statement -> for_statement .)
+    MINUS           reduce using rule 6 (statement -> for_statement .)
+    LPAREN          reduce using rule 6 (statement -> for_statement .)
+    NUMBER          reduce using rule 6 (statement -> for_statement .)
+    STRING          reduce using rule 6 (statement -> for_statement .)
+    BOOLEAN         reduce using rule 6 (statement -> for_statement .)
+    IF              reduce using rule 6 (statement -> for_statement .)
+    FOR             reduce using rule 6 (statement -> for_statement .)
+    WHILE           reduce using rule 6 (statement -> for_statement .)
+    FUNCTION        reduce using rule 6 (statement -> for_statement .)
+    ECHO            reduce using rule 6 (statement -> for_statement .)
+    PRINT           reduce using rule 6 (statement -> for_statement .)
+    $end            reduce using rule 6 (statement -> for_statement .)
+    PHP_CLOSE       reduce using rule 6 (statement -> for_statement .)
+    ELSE            reduce using rule 6 (statement -> for_statement .)
+    RBLOCK          reduce using rule 6 (statement -> for_statement .)
+
+
+state 7
+
+    (7) statement -> while_statement .
+
+    RETURN          reduce using rule 7 (statement -> while_statement .)
+    PHP_OPEN        reduce using rule 7 (statement -> while_statement .)
+    ID              reduce using rule 7 (statement -> while_statement .)
+    VARIABLE        reduce using rule 7 (statement -> while_statement .)
+    MINUS           reduce using rule 7 (statement -> while_statement .)
+    LPAREN          reduce using rule 7 (statement -> while_statement .)
+    NUMBER          reduce using rule 7 (statement -> while_statement .)
+    STRING          reduce using rule 7 (statement -> while_statement .)
+    BOOLEAN         reduce using rule 7 (statement -> while_statement .)
+    IF              reduce using rule 7 (statement -> while_statement .)
+    FOR             reduce using rule 7 (statement -> while_statement .)
+    WHILE           reduce using rule 7 (statement -> while_statement .)
+    FUNCTION        reduce using rule 7 (statement -> while_statement .)
+    ECHO            reduce using rule 7 (statement -> while_statement .)
+    PRINT           reduce using rule 7 (statement -> while_statement .)
+    $end            reduce using rule 7 (statement -> while_statement .)
+    PHP_CLOSE       reduce using rule 7 (statement -> while_statement .)
+    ELSE            reduce using rule 7 (statement -> while_statement .)
+    RBLOCK          reduce using rule 7 (statement -> while_statement .)
+
+
+state 8
+
+    (8) statement -> function_declaration .
+
+    RETURN          reduce using rule 8 (statement -> function_declaration .)
+    PHP_OPEN        reduce using rule 8 (statement -> function_declaration .)
+    ID              reduce using rule 8 (statement -> function_declaration .)
+    VARIABLE        reduce using rule 8 (statement -> function_declaration .)
+    MINUS           reduce using rule 8 (statement -> function_declaration .)
+    LPAREN          reduce using rule 8 (statement -> function_declaration .)
+    NUMBER          reduce using rule 8 (statement -> function_declaration .)
+    STRING          reduce using rule 8 (statement -> function_declaration .)
+    BOOLEAN         reduce using rule 8 (statement -> function_declaration .)
+    IF              reduce using rule 8 (statement -> function_declaration .)
+    FOR             reduce using rule 8 (statement -> function_declaration .)
+    WHILE           reduce using rule 8 (statement -> function_declaration .)
+    FUNCTION        reduce using rule 8 (statement -> function_declaration .)
+    ECHO            reduce using rule 8 (statement -> function_declaration .)
+    PRINT           reduce using rule 8 (statement -> function_declaration .)
+    $end            reduce using rule 8 (statement -> function_declaration .)
+    PHP_CLOSE       reduce using rule 8 (statement -> function_declaration .)
+    ELSE            reduce using rule 8 (statement -> function_declaration .)
+    RBLOCK          reduce using rule 8 (statement -> function_declaration .)
+
+
+state 9
+
+    (9) statement -> echo_statement .
+
+    RETURN          reduce using rule 9 (statement -> echo_statement .)
+    PHP_OPEN        reduce using rule 9 (statement -> echo_statement .)
+    ID              reduce using rule 9 (statement -> echo_statement .)
+    VARIABLE        reduce using rule 9 (statement -> echo_statement .)
+    MINUS           reduce using rule 9 (statement -> echo_statement .)
+    LPAREN          reduce using rule 9 (statement -> echo_statement .)
+    NUMBER          reduce using rule 9 (statement -> echo_statement .)
+    STRING          reduce using rule 9 (statement -> echo_statement .)
+    BOOLEAN         reduce using rule 9 (statement -> echo_statement .)
+    IF              reduce using rule 9 (statement -> echo_statement .)
+    FOR             reduce using rule 9 (statement -> echo_statement .)
+    WHILE           reduce using rule 9 (statement -> echo_statement .)
+    FUNCTION        reduce using rule 9 (statement -> echo_statement .)
+    ECHO            reduce using rule 9 (statement -> echo_statement .)
+    PRINT           reduce using rule 9 (statement -> echo_statement .)
+    $end            reduce using rule 9 (statement -> echo_statement .)
+    PHP_CLOSE       reduce using rule 9 (statement -> echo_statement .)
+    ELSE            reduce using rule 9 (statement -> echo_statement .)
+    RBLOCK          reduce using rule 9 (statement -> echo_statement .)
+
+
+state 10
+
+    (10) statement -> print_statement .
+
+    RETURN          reduce using rule 10 (statement -> print_statement .)
+    PHP_OPEN        reduce using rule 10 (statement -> print_statement .)
+    ID              reduce using rule 10 (statement -> print_statement .)
+    VARIABLE        reduce using rule 10 (statement -> print_statement .)
+    MINUS           reduce using rule 10 (statement -> print_statement .)
+    LPAREN          reduce using rule 10 (statement -> print_statement .)
+    NUMBER          reduce using rule 10 (statement -> print_statement .)
+    STRING          reduce using rule 10 (statement -> print_statement .)
+    BOOLEAN         reduce using rule 10 (statement -> print_statement .)
+    IF              reduce using rule 10 (statement -> print_statement .)
+    FOR             reduce using rule 10 (statement -> print_statement .)
+    WHILE           reduce using rule 10 (statement -> print_statement .)
+    FUNCTION        reduce using rule 10 (statement -> print_statement .)
+    ECHO            reduce using rule 10 (statement -> print_statement .)
+    PRINT           reduce using rule 10 (statement -> print_statement .)
+    $end            reduce using rule 10 (statement -> print_statement .)
+    PHP_CLOSE       reduce using rule 10 (statement -> print_statement .)
+    ELSE            reduce using rule 10 (statement -> print_statement .)
+    RBLOCK          reduce using rule 10 (statement -> print_statement .)
+
+
+state 11
+
+    (11) statement -> RETURN . expression SEMICOLON
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 41
+
+state 12
+
+    (12) statement -> PHP_OPEN . statement_list PHP_CLOSE
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    statement_list                 shift and go to state 42
+    statement                      shift and go to state 3
+    expression                     shift and go to state 4
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 13
+
+    (23) expression -> ID . LPAREN argument_list RPAREN
+
+    LPAREN          shift and go to state 43
+
+
+state 14
+
+    (44) expression -> LPAREN . expression RPAREN
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 44
+
+state 15
+
+    (24) expression -> VARIABLE . LPAREN argument_list RPAREN
+    (42) expression -> VARIABLE . INCREMENT
+    (43) expression -> VARIABLE . DECREMENT
+    (46) expression -> VARIABLE .
+    (49) expression -> VARIABLE . EQUAL expression
+
+    LPAREN          shift and go to state 45
+    INCREMENT       shift and go to state 46
+    DECREMENT       shift and go to state 47
+    SEMICOLON       reduce using rule 46 (expression -> VARIABLE .)
+    PLUS            reduce using rule 46 (expression -> VARIABLE .)
+    MINUS           reduce using rule 46 (expression -> VARIABLE .)
+    TIMES           reduce using rule 46 (expression -> VARIABLE .)
+    MODULE          reduce using rule 46 (expression -> VARIABLE .)
+    DOT             reduce using rule 46 (expression -> VARIABLE .)
+    ISEQUAL         reduce using rule 46 (expression -> VARIABLE .)
+    NOTISEQUAL      reduce using rule 46 (expression -> VARIABLE .)
+    GREATERTHAN     reduce using rule 46 (expression -> VARIABLE .)
+    LESSTHAN        reduce using rule 46 (expression -> VARIABLE .)
+    GREATERTHANEQUAL reduce using rule 46 (expression -> VARIABLE .)
+    LESSEQUAL       reduce using rule 46 (expression -> VARIABLE .)
+    AND             reduce using rule 46 (expression -> VARIABLE .)
+    OR              reduce using rule 46 (expression -> VARIABLE .)
+    RPAREN          reduce using rule 46 (expression -> VARIABLE .)
+    COMMA           reduce using rule 46 (expression -> VARIABLE .)
+    EQUAL           shift and go to state 48
+
+
+state 16
+
+    (41) expression -> MINUS . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 49
+
+state 17
+
+    (45) expression -> NUMBER .
+
+    SEMICOLON       reduce using rule 45 (expression -> NUMBER .)
+    PLUS            reduce using rule 45 (expression -> NUMBER .)
+    MINUS           reduce using rule 45 (expression -> NUMBER .)
+    TIMES           reduce using rule 45 (expression -> NUMBER .)
+    MODULE          reduce using rule 45 (expression -> NUMBER .)
+    DOT             reduce using rule 45 (expression -> NUMBER .)
+    ISEQUAL         reduce using rule 45 (expression -> NUMBER .)
+    NOTISEQUAL      reduce using rule 45 (expression -> NUMBER .)
+    GREATERTHAN     reduce using rule 45 (expression -> NUMBER .)
+    LESSTHAN        reduce using rule 45 (expression -> NUMBER .)
+    GREATERTHANEQUAL reduce using rule 45 (expression -> NUMBER .)
+    LESSEQUAL       reduce using rule 45 (expression -> NUMBER .)
+    AND             reduce using rule 45 (expression -> NUMBER .)
+    OR              reduce using rule 45 (expression -> NUMBER .)
+    RPAREN          reduce using rule 45 (expression -> NUMBER .)
+    COMMA           reduce using rule 45 (expression -> NUMBER .)
+
+
+state 18
+
+    (47) expression -> STRING .
+
+    SEMICOLON       reduce using rule 47 (expression -> STRING .)
+    PLUS            reduce using rule 47 (expression -> STRING .)
+    MINUS           reduce using rule 47 (expression -> STRING .)
+    TIMES           reduce using rule 47 (expression -> STRING .)
+    MODULE          reduce using rule 47 (expression -> STRING .)
+    DOT             reduce using rule 47 (expression -> STRING .)
+    ISEQUAL         reduce using rule 47 (expression -> STRING .)
+    NOTISEQUAL      reduce using rule 47 (expression -> STRING .)
+    GREATERTHAN     reduce using rule 47 (expression -> STRING .)
+    LESSTHAN        reduce using rule 47 (expression -> STRING .)
+    GREATERTHANEQUAL reduce using rule 47 (expression -> STRING .)
+    LESSEQUAL       reduce using rule 47 (expression -> STRING .)
+    AND             reduce using rule 47 (expression -> STRING .)
+    OR              reduce using rule 47 (expression -> STRING .)
+    RPAREN          reduce using rule 47 (expression -> STRING .)
+    COMMA           reduce using rule 47 (expression -> STRING .)
+
+
+state 19
+
+    (48) expression -> BOOLEAN .
+
+    SEMICOLON       reduce using rule 48 (expression -> BOOLEAN .)
+    PLUS            reduce using rule 48 (expression -> BOOLEAN .)
+    MINUS           reduce using rule 48 (expression -> BOOLEAN .)
+    TIMES           reduce using rule 48 (expression -> BOOLEAN .)
+    MODULE          reduce using rule 48 (expression -> BOOLEAN .)
+    DOT             reduce using rule 48 (expression -> BOOLEAN .)
+    ISEQUAL         reduce using rule 48 (expression -> BOOLEAN .)
+    NOTISEQUAL      reduce using rule 48 (expression -> BOOLEAN .)
+    GREATERTHAN     reduce using rule 48 (expression -> BOOLEAN .)
+    LESSTHAN        reduce using rule 48 (expression -> BOOLEAN .)
+    GREATERTHANEQUAL reduce using rule 48 (expression -> BOOLEAN .)
+    LESSEQUAL       reduce using rule 48 (expression -> BOOLEAN .)
+    AND             reduce using rule 48 (expression -> BOOLEAN .)
+    OR              reduce using rule 48 (expression -> BOOLEAN .)
+    RPAREN          reduce using rule 48 (expression -> BOOLEAN .)
+    COMMA           reduce using rule 48 (expression -> BOOLEAN .)
+
+
+state 20
+
+    (13) if_statement -> IF . LPAREN expression RPAREN statement
+    (14) if_statement -> IF . LPAREN expression RPAREN statement ELSE statement
+
+    LPAREN          shift and go to state 50
+
+
+state 21
+
+    (15) for_statement -> FOR . LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+
+    LPAREN          shift and go to state 51
+
+
+state 22
+
+    (16) while_statement -> WHILE . LPAREN expression RPAREN statement
+
+    LPAREN          shift and go to state 52
+
+
+state 23
+
+    (19) function_declaration -> FUNCTION . ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+
+    ID              shift and go to state 53
+
+
+state 24
+
+    (17) echo_statement -> ECHO . expression SEMICOLON
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 54
+
+state 25
+
+    (18) print_statement -> PRINT . expression SEMICOLON
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 55
+
+state 26
+
+    (2) statement_list -> statement_list statement .
+
+    RETURN          reduce using rule 2 (statement_list -> statement_list statement .)
+    PHP_OPEN        reduce using rule 2 (statement_list -> statement_list statement .)
+    ID              reduce using rule 2 (statement_list -> statement_list statement .)
+    VARIABLE        reduce using rule 2 (statement_list -> statement_list statement .)
+    MINUS           reduce using rule 2 (statement_list -> statement_list statement .)
+    LPAREN          reduce using rule 2 (statement_list -> statement_list statement .)
+    NUMBER          reduce using rule 2 (statement_list -> statement_list statement .)
+    STRING          reduce using rule 2 (statement_list -> statement_list statement .)
+    BOOLEAN         reduce using rule 2 (statement_list -> statement_list statement .)
+    IF              reduce using rule 2 (statement_list -> statement_list statement .)
+    FOR             reduce using rule 2 (statement_list -> statement_list statement .)
+    WHILE           reduce using rule 2 (statement_list -> statement_list statement .)
+    FUNCTION        reduce using rule 2 (statement_list -> statement_list statement .)
+    ECHO            reduce using rule 2 (statement_list -> statement_list statement .)
+    PRINT           reduce using rule 2 (statement_list -> statement_list statement .)
+    $end            reduce using rule 2 (statement_list -> statement_list statement .)
+    PHP_CLOSE       reduce using rule 2 (statement_list -> statement_list statement .)
+    RBLOCK          reduce using rule 2 (statement_list -> statement_list statement .)
+
+
+state 27
+
+    (4) statement -> expression SEMICOLON .
+
+    RETURN          reduce using rule 4 (statement -> expression SEMICOLON .)
+    PHP_OPEN        reduce using rule 4 (statement -> expression SEMICOLON .)
+    ID              reduce using rule 4 (statement -> expression SEMICOLON .)
+    VARIABLE        reduce using rule 4 (statement -> expression SEMICOLON .)
+    MINUS           reduce using rule 4 (statement -> expression SEMICOLON .)
+    LPAREN          reduce using rule 4 (statement -> expression SEMICOLON .)
+    NUMBER          reduce using rule 4 (statement -> expression SEMICOLON .)
+    STRING          reduce using rule 4 (statement -> expression SEMICOLON .)
+    BOOLEAN         reduce using rule 4 (statement -> expression SEMICOLON .)
+    IF              reduce using rule 4 (statement -> expression SEMICOLON .)
+    FOR             reduce using rule 4 (statement -> expression SEMICOLON .)
+    WHILE           reduce using rule 4 (statement -> expression SEMICOLON .)
+    FUNCTION        reduce using rule 4 (statement -> expression SEMICOLON .)
+    ECHO            reduce using rule 4 (statement -> expression SEMICOLON .)
+    PRINT           reduce using rule 4 (statement -> expression SEMICOLON .)
+    $end            reduce using rule 4 (statement -> expression SEMICOLON .)
+    PHP_CLOSE       reduce using rule 4 (statement -> expression SEMICOLON .)
+    ELSE            reduce using rule 4 (statement -> expression SEMICOLON .)
+    RBLOCK          reduce using rule 4 (statement -> expression SEMICOLON .)
+
+
+state 28
+
+    (28) expression -> expression PLUS . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 56
+
+state 29
+
+    (29) expression -> expression MINUS . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 57
+
+state 30
+
+    (30) expression -> expression TIMES . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 58
+
+state 31
+
+    (31) expression -> expression MODULE . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 59
+
+state 32
+
+    (32) expression -> expression DOT . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 60
+
+state 33
+
+    (33) expression -> expression ISEQUAL . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 61
+
+state 34
+
+    (34) expression -> expression NOTISEQUAL . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 62
+
+state 35
+
+    (35) expression -> expression GREATERTHAN . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 63
+
+state 36
+
+    (36) expression -> expression LESSTHAN . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 64
+
+state 37
+
+    (37) expression -> expression GREATERTHANEQUAL . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 65
+
+state 38
+
+    (38) expression -> expression LESSEQUAL . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 66
+
+state 39
+
+    (39) expression -> expression AND . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 67
+
+state 40
+
+    (40) expression -> expression OR . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 68
+
+state 41
+
+    (11) statement -> RETURN expression . SEMICOLON
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       shift and go to state 69
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 42
+
+    (12) statement -> PHP_OPEN statement_list . PHP_CLOSE
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    PHP_CLOSE       shift and go to state 70
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    statement                      shift and go to state 26
+    expression                     shift and go to state 4
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 43
+
+    (23) expression -> ID LPAREN . argument_list RPAREN
+    (25) argument_list -> . argument_list COMMA expression
+    (26) argument_list -> . expression
+    (27) argument_list -> . empty
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (50) empty -> .
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    RPAREN          reduce using rule 50 (empty -> .)
+    COMMA           reduce using rule 50 (empty -> .)
+
+    argument_list                  shift and go to state 71
+    expression                     shift and go to state 72
+    empty                          shift and go to state 73
+
+state 44
+
+    (44) expression -> LPAREN expression . RPAREN
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 74
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 45
+
+    (24) expression -> VARIABLE LPAREN . argument_list RPAREN
+    (25) argument_list -> . argument_list COMMA expression
+    (26) argument_list -> . expression
+    (27) argument_list -> . empty
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (50) empty -> .
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    RPAREN          reduce using rule 50 (empty -> .)
+    COMMA           reduce using rule 50 (empty -> .)
+
+    argument_list                  shift and go to state 75
+    expression                     shift and go to state 72
+    empty                          shift and go to state 73
+
+state 46
+
+    (42) expression -> VARIABLE INCREMENT .
+
+    SEMICOLON       reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    PLUS            reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    MINUS           reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    TIMES           reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    MODULE          reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    DOT             reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    ISEQUAL         reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    NOTISEQUAL      reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    GREATERTHAN     reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    LESSTHAN        reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    GREATERTHANEQUAL reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    LESSEQUAL       reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    AND             reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    OR              reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    RPAREN          reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+    COMMA           reduce using rule 42 (expression -> VARIABLE INCREMENT .)
+
+
+state 47
+
+    (43) expression -> VARIABLE DECREMENT .
+
+    SEMICOLON       reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    PLUS            reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    MINUS           reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    TIMES           reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    MODULE          reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    DOT             reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    ISEQUAL         reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    NOTISEQUAL      reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    GREATERTHAN     reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    LESSTHAN        reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    GREATERTHANEQUAL reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    LESSEQUAL       reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    AND             reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    OR              reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    RPAREN          reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+    COMMA           reduce using rule 43 (expression -> VARIABLE DECREMENT .)
+
+
+state 48
+
+    (49) expression -> VARIABLE EQUAL . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 76
+
+state 49
+
+    (41) expression -> MINUS expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 41 (expression -> MINUS expression .)
+    PLUS            reduce using rule 41 (expression -> MINUS expression .)
+    MINUS           reduce using rule 41 (expression -> MINUS expression .)
+    TIMES           reduce using rule 41 (expression -> MINUS expression .)
+    MODULE          reduce using rule 41 (expression -> MINUS expression .)
+    DOT             reduce using rule 41 (expression -> MINUS expression .)
+    ISEQUAL         reduce using rule 41 (expression -> MINUS expression .)
+    NOTISEQUAL      reduce using rule 41 (expression -> MINUS expression .)
+    GREATERTHAN     reduce using rule 41 (expression -> MINUS expression .)
+    LESSTHAN        reduce using rule 41 (expression -> MINUS expression .)
+    GREATERTHANEQUAL reduce using rule 41 (expression -> MINUS expression .)
+    LESSEQUAL       reduce using rule 41 (expression -> MINUS expression .)
+    AND             reduce using rule 41 (expression -> MINUS expression .)
+    OR              reduce using rule 41 (expression -> MINUS expression .)
+    RPAREN          reduce using rule 41 (expression -> MINUS expression .)
+    COMMA           reduce using rule 41 (expression -> MINUS expression .)
+
+  ! PLUS            [ shift and go to state 28 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! TIMES           [ shift and go to state 30 ]
+  ! MODULE          [ shift and go to state 31 ]
+  ! DOT             [ shift and go to state 32 ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 50
+
+    (13) if_statement -> IF LPAREN . expression RPAREN statement
+    (14) if_statement -> IF LPAREN . expression RPAREN statement ELSE statement
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 77
+
+state 51
+
+    (15) for_statement -> FOR LPAREN . expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 78
+
+state 52
+
+    (16) while_statement -> WHILE LPAREN . expression RPAREN statement
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 79
+
+state 53
+
+    (19) function_declaration -> FUNCTION ID . LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+
+    LPAREN          shift and go to state 80
+
+
+state 54
+
+    (17) echo_statement -> ECHO expression . SEMICOLON
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       shift and go to state 81
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 55
+
+    (18) print_statement -> PRINT expression . SEMICOLON
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       shift and go to state 82
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 56
+
+    (28) expression -> expression PLUS expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 28 (expression -> expression PLUS expression .)
+    PLUS            reduce using rule 28 (expression -> expression PLUS expression .)
+    MINUS           reduce using rule 28 (expression -> expression PLUS expression .)
+    DOT             reduce using rule 28 (expression -> expression PLUS expression .)
+    ISEQUAL         reduce using rule 28 (expression -> expression PLUS expression .)
+    NOTISEQUAL      reduce using rule 28 (expression -> expression PLUS expression .)
+    GREATERTHAN     reduce using rule 28 (expression -> expression PLUS expression .)
+    LESSTHAN        reduce using rule 28 (expression -> expression PLUS expression .)
+    GREATERTHANEQUAL reduce using rule 28 (expression -> expression PLUS expression .)
+    LESSEQUAL       reduce using rule 28 (expression -> expression PLUS expression .)
+    AND             reduce using rule 28 (expression -> expression PLUS expression .)
+    OR              reduce using rule 28 (expression -> expression PLUS expression .)
+    RPAREN          reduce using rule 28 (expression -> expression PLUS expression .)
+    COMMA           reduce using rule 28 (expression -> expression PLUS expression .)
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+
+  ! TIMES           [ reduce using rule 28 (expression -> expression PLUS expression .) ]
+  ! MODULE          [ reduce using rule 28 (expression -> expression PLUS expression .) ]
+  ! PLUS            [ shift and go to state 28 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! DOT             [ shift and go to state 32 ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 57
+
+    (29) expression -> expression MINUS expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 29 (expression -> expression MINUS expression .)
+    PLUS            reduce using rule 29 (expression -> expression MINUS expression .)
+    MINUS           reduce using rule 29 (expression -> expression MINUS expression .)
+    DOT             reduce using rule 29 (expression -> expression MINUS expression .)
+    ISEQUAL         reduce using rule 29 (expression -> expression MINUS expression .)
+    NOTISEQUAL      reduce using rule 29 (expression -> expression MINUS expression .)
+    GREATERTHAN     reduce using rule 29 (expression -> expression MINUS expression .)
+    LESSTHAN        reduce using rule 29 (expression -> expression MINUS expression .)
+    GREATERTHANEQUAL reduce using rule 29 (expression -> expression MINUS expression .)
+    LESSEQUAL       reduce using rule 29 (expression -> expression MINUS expression .)
+    AND             reduce using rule 29 (expression -> expression MINUS expression .)
+    OR              reduce using rule 29 (expression -> expression MINUS expression .)
+    RPAREN          reduce using rule 29 (expression -> expression MINUS expression .)
+    COMMA           reduce using rule 29 (expression -> expression MINUS expression .)
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+
+  ! TIMES           [ reduce using rule 29 (expression -> expression MINUS expression .) ]
+  ! MODULE          [ reduce using rule 29 (expression -> expression MINUS expression .) ]
+  ! PLUS            [ shift and go to state 28 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! DOT             [ shift and go to state 32 ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 58
+
+    (30) expression -> expression TIMES expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 30 (expression -> expression TIMES expression .)
+    PLUS            reduce using rule 30 (expression -> expression TIMES expression .)
+    MINUS           reduce using rule 30 (expression -> expression TIMES expression .)
+    TIMES           reduce using rule 30 (expression -> expression TIMES expression .)
+    MODULE          reduce using rule 30 (expression -> expression TIMES expression .)
+    DOT             reduce using rule 30 (expression -> expression TIMES expression .)
+    ISEQUAL         reduce using rule 30 (expression -> expression TIMES expression .)
+    NOTISEQUAL      reduce using rule 30 (expression -> expression TIMES expression .)
+    GREATERTHAN     reduce using rule 30 (expression -> expression TIMES expression .)
+    LESSTHAN        reduce using rule 30 (expression -> expression TIMES expression .)
+    GREATERTHANEQUAL reduce using rule 30 (expression -> expression TIMES expression .)
+    LESSEQUAL       reduce using rule 30 (expression -> expression TIMES expression .)
+    AND             reduce using rule 30 (expression -> expression TIMES expression .)
+    OR              reduce using rule 30 (expression -> expression TIMES expression .)
+    RPAREN          reduce using rule 30 (expression -> expression TIMES expression .)
+    COMMA           reduce using rule 30 (expression -> expression TIMES expression .)
+
+  ! PLUS            [ shift and go to state 28 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! TIMES           [ shift and go to state 30 ]
+  ! MODULE          [ shift and go to state 31 ]
+  ! DOT             [ shift and go to state 32 ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 59
+
+    (31) expression -> expression MODULE expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 31 (expression -> expression MODULE expression .)
+    PLUS            reduce using rule 31 (expression -> expression MODULE expression .)
+    MINUS           reduce using rule 31 (expression -> expression MODULE expression .)
+    TIMES           reduce using rule 31 (expression -> expression MODULE expression .)
+    MODULE          reduce using rule 31 (expression -> expression MODULE expression .)
+    DOT             reduce using rule 31 (expression -> expression MODULE expression .)
+    ISEQUAL         reduce using rule 31 (expression -> expression MODULE expression .)
+    NOTISEQUAL      reduce using rule 31 (expression -> expression MODULE expression .)
+    GREATERTHAN     reduce using rule 31 (expression -> expression MODULE expression .)
+    LESSTHAN        reduce using rule 31 (expression -> expression MODULE expression .)
+    GREATERTHANEQUAL reduce using rule 31 (expression -> expression MODULE expression .)
+    LESSEQUAL       reduce using rule 31 (expression -> expression MODULE expression .)
+    AND             reduce using rule 31 (expression -> expression MODULE expression .)
+    OR              reduce using rule 31 (expression -> expression MODULE expression .)
+    RPAREN          reduce using rule 31 (expression -> expression MODULE expression .)
+    COMMA           reduce using rule 31 (expression -> expression MODULE expression .)
+
+  ! PLUS            [ shift and go to state 28 ]
+  ! MINUS           [ shift and go to state 29 ]
+  ! TIMES           [ shift and go to state 30 ]
+  ! MODULE          [ shift and go to state 31 ]
+  ! DOT             [ shift and go to state 32 ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 60
+
+    (32) expression -> expression DOT expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 32 (expression -> expression DOT expression .)
+    DOT             reduce using rule 32 (expression -> expression DOT expression .)
+    ISEQUAL         reduce using rule 32 (expression -> expression DOT expression .)
+    NOTISEQUAL      reduce using rule 32 (expression -> expression DOT expression .)
+    GREATERTHAN     reduce using rule 32 (expression -> expression DOT expression .)
+    LESSTHAN        reduce using rule 32 (expression -> expression DOT expression .)
+    GREATERTHANEQUAL reduce using rule 32 (expression -> expression DOT expression .)
+    LESSEQUAL       reduce using rule 32 (expression -> expression DOT expression .)
+    AND             reduce using rule 32 (expression -> expression DOT expression .)
+    OR              reduce using rule 32 (expression -> expression DOT expression .)
+    RPAREN          reduce using rule 32 (expression -> expression DOT expression .)
+    COMMA           reduce using rule 32 (expression -> expression DOT expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+
+  ! PLUS            [ reduce using rule 32 (expression -> expression DOT expression .) ]
+  ! MINUS           [ reduce using rule 32 (expression -> expression DOT expression .) ]
+  ! TIMES           [ reduce using rule 32 (expression -> expression DOT expression .) ]
+  ! MODULE          [ reduce using rule 32 (expression -> expression DOT expression .) ]
+  ! DOT             [ shift and go to state 32 ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 61
+
+    (33) expression -> expression ISEQUAL expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    ISEQUAL         reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    NOTISEQUAL      reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    GREATERTHAN     reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    LESSTHAN        reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    GREATERTHANEQUAL reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    LESSEQUAL       reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    AND             reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    OR              reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    RPAREN          reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    COMMA           reduce using rule 33 (expression -> expression ISEQUAL expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+
+  ! PLUS            [ reduce using rule 33 (expression -> expression ISEQUAL expression .) ]
+  ! MINUS           [ reduce using rule 33 (expression -> expression ISEQUAL expression .) ]
+  ! TIMES           [ reduce using rule 33 (expression -> expression ISEQUAL expression .) ]
+  ! MODULE          [ reduce using rule 33 (expression -> expression ISEQUAL expression .) ]
+  ! DOT             [ reduce using rule 33 (expression -> expression ISEQUAL expression .) ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 62
+
+    (34) expression -> expression NOTISEQUAL expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    ISEQUAL         reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    NOTISEQUAL      reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    GREATERTHAN     reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    LESSTHAN        reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    GREATERTHANEQUAL reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    LESSEQUAL       reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    AND             reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    OR              reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    RPAREN          reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    COMMA           reduce using rule 34 (expression -> expression NOTISEQUAL expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+
+  ! PLUS            [ reduce using rule 34 (expression -> expression NOTISEQUAL expression .) ]
+  ! MINUS           [ reduce using rule 34 (expression -> expression NOTISEQUAL expression .) ]
+  ! TIMES           [ reduce using rule 34 (expression -> expression NOTISEQUAL expression .) ]
+  ! MODULE          [ reduce using rule 34 (expression -> expression NOTISEQUAL expression .) ]
+  ! DOT             [ reduce using rule 34 (expression -> expression NOTISEQUAL expression .) ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 63
+
+    (35) expression -> expression GREATERTHAN expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    ISEQUAL         reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    NOTISEQUAL      reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    GREATERTHAN     reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    LESSTHAN        reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    GREATERTHANEQUAL reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    LESSEQUAL       reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    AND             reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    OR              reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    RPAREN          reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    COMMA           reduce using rule 35 (expression -> expression GREATERTHAN expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+
+  ! PLUS            [ reduce using rule 35 (expression -> expression GREATERTHAN expression .) ]
+  ! MINUS           [ reduce using rule 35 (expression -> expression GREATERTHAN expression .) ]
+  ! TIMES           [ reduce using rule 35 (expression -> expression GREATERTHAN expression .) ]
+  ! MODULE          [ reduce using rule 35 (expression -> expression GREATERTHAN expression .) ]
+  ! DOT             [ reduce using rule 35 (expression -> expression GREATERTHAN expression .) ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 64
+
+    (36) expression -> expression LESSTHAN expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    ISEQUAL         reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    NOTISEQUAL      reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    GREATERTHAN     reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    LESSTHAN        reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    GREATERTHANEQUAL reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    LESSEQUAL       reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    AND             reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    OR              reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    RPAREN          reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    COMMA           reduce using rule 36 (expression -> expression LESSTHAN expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+
+  ! PLUS            [ reduce using rule 36 (expression -> expression LESSTHAN expression .) ]
+  ! MINUS           [ reduce using rule 36 (expression -> expression LESSTHAN expression .) ]
+  ! TIMES           [ reduce using rule 36 (expression -> expression LESSTHAN expression .) ]
+  ! MODULE          [ reduce using rule 36 (expression -> expression LESSTHAN expression .) ]
+  ! DOT             [ reduce using rule 36 (expression -> expression LESSTHAN expression .) ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 65
+
+    (37) expression -> expression GREATERTHANEQUAL expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    ISEQUAL         reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    NOTISEQUAL      reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    GREATERTHAN     reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    LESSTHAN        reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    GREATERTHANEQUAL reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    LESSEQUAL       reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    AND             reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    OR              reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    RPAREN          reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    COMMA           reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+
+  ! PLUS            [ reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .) ]
+  ! MINUS           [ reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .) ]
+  ! TIMES           [ reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .) ]
+  ! MODULE          [ reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .) ]
+  ! DOT             [ reduce using rule 37 (expression -> expression GREATERTHANEQUAL expression .) ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 66
+
+    (38) expression -> expression LESSEQUAL expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    ISEQUAL         reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    NOTISEQUAL      reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    GREATERTHAN     reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    LESSTHAN        reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    GREATERTHANEQUAL reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    LESSEQUAL       reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    AND             reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    OR              reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    RPAREN          reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    COMMA           reduce using rule 38 (expression -> expression LESSEQUAL expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+
+  ! PLUS            [ reduce using rule 38 (expression -> expression LESSEQUAL expression .) ]
+  ! MINUS           [ reduce using rule 38 (expression -> expression LESSEQUAL expression .) ]
+  ! TIMES           [ reduce using rule 38 (expression -> expression LESSEQUAL expression .) ]
+  ! MODULE          [ reduce using rule 38 (expression -> expression LESSEQUAL expression .) ]
+  ! DOT             [ reduce using rule 38 (expression -> expression LESSEQUAL expression .) ]
+  ! ISEQUAL         [ shift and go to state 33 ]
+  ! NOTISEQUAL      [ shift and go to state 34 ]
+  ! GREATERTHAN     [ shift and go to state 35 ]
+  ! LESSTHAN        [ shift and go to state 36 ]
+  ! GREATERTHANEQUAL [ shift and go to state 37 ]
+  ! LESSEQUAL       [ shift and go to state 38 ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 67
+
+    (39) expression -> expression AND expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 39 (expression -> expression AND expression .)
+    AND             reduce using rule 39 (expression -> expression AND expression .)
+    OR              reduce using rule 39 (expression -> expression AND expression .)
+    RPAREN          reduce using rule 39 (expression -> expression AND expression .)
+    COMMA           reduce using rule 39 (expression -> expression AND expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+
+  ! PLUS            [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! MINUS           [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! TIMES           [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! MODULE          [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! DOT             [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! ISEQUAL         [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! NOTISEQUAL      [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! GREATERTHAN     [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! LESSTHAN        [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! GREATERTHANEQUAL [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! LESSEQUAL       [ reduce using rule 39 (expression -> expression AND expression .) ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 68
+
+    (40) expression -> expression OR expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 40 (expression -> expression OR expression .)
+    AND             reduce using rule 40 (expression -> expression OR expression .)
+    OR              reduce using rule 40 (expression -> expression OR expression .)
+    RPAREN          reduce using rule 40 (expression -> expression OR expression .)
+    COMMA           reduce using rule 40 (expression -> expression OR expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+
+  ! PLUS            [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! MINUS           [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! TIMES           [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! MODULE          [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! DOT             [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! ISEQUAL         [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! NOTISEQUAL      [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! GREATERTHAN     [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! LESSTHAN        [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! GREATERTHANEQUAL [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! LESSEQUAL       [ reduce using rule 40 (expression -> expression OR expression .) ]
+  ! AND             [ shift and go to state 39 ]
+  ! OR              [ shift and go to state 40 ]
+
+
+state 69
+
+    (11) statement -> RETURN expression SEMICOLON .
+
+    RETURN          reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    PHP_OPEN        reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    ID              reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    VARIABLE        reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    MINUS           reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    LPAREN          reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    NUMBER          reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    STRING          reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    BOOLEAN         reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    IF              reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    FOR             reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    WHILE           reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    FUNCTION        reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    ECHO            reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    PRINT           reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    $end            reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    PHP_CLOSE       reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    ELSE            reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+    RBLOCK          reduce using rule 11 (statement -> RETURN expression SEMICOLON .)
+
+
+state 70
+
+    (12) statement -> PHP_OPEN statement_list PHP_CLOSE .
+
+    RETURN          reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    PHP_OPEN        reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    ID              reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    VARIABLE        reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    MINUS           reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    LPAREN          reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    NUMBER          reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    STRING          reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    BOOLEAN         reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    IF              reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    FOR             reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    WHILE           reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    FUNCTION        reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    ECHO            reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    PRINT           reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    $end            reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    PHP_CLOSE       reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    ELSE            reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+    RBLOCK          reduce using rule 12 (statement -> PHP_OPEN statement_list PHP_CLOSE .)
+
+
+state 71
+
+    (23) expression -> ID LPAREN argument_list . RPAREN
+    (25) argument_list -> argument_list . COMMA expression
+
+    RPAREN          shift and go to state 83
+    COMMA           shift and go to state 84
+
+
+state 72
+
+    (26) argument_list -> expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    RPAREN          reduce using rule 26 (argument_list -> expression .)
+    COMMA           reduce using rule 26 (argument_list -> expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 73
+
+    (27) argument_list -> empty .
+
+    RPAREN          reduce using rule 27 (argument_list -> empty .)
+    COMMA           reduce using rule 27 (argument_list -> empty .)
+
+
+state 74
+
+    (44) expression -> LPAREN expression RPAREN .
+
+    SEMICOLON       reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    PLUS            reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    MINUS           reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    TIMES           reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    MODULE          reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    DOT             reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    ISEQUAL         reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    NOTISEQUAL      reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    GREATERTHAN     reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    LESSTHAN        reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    GREATERTHANEQUAL reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    LESSEQUAL       reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    AND             reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    OR              reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    RPAREN          reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+    COMMA           reduce using rule 44 (expression -> LPAREN expression RPAREN .)
+
+
+state 75
+
+    (24) expression -> VARIABLE LPAREN argument_list . RPAREN
+    (25) argument_list -> argument_list . COMMA expression
+
+    RPAREN          shift and go to state 85
+    COMMA           shift and go to state 84
+
+
+state 76
+
+    (49) expression -> VARIABLE EQUAL expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       reduce using rule 49 (expression -> VARIABLE EQUAL expression .)
+    RPAREN          reduce using rule 49 (expression -> VARIABLE EQUAL expression .)
+    COMMA           reduce using rule 49 (expression -> VARIABLE EQUAL expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+  ! PLUS            [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! MINUS           [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! TIMES           [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! MODULE          [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! DOT             [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! ISEQUAL         [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! NOTISEQUAL      [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! GREATERTHAN     [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! LESSTHAN        [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! GREATERTHANEQUAL [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! LESSEQUAL       [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! AND             [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+  ! OR              [ reduce using rule 49 (expression -> VARIABLE EQUAL expression .) ]
+
+
+state 77
+
+    (13) if_statement -> IF LPAREN expression . RPAREN statement
+    (14) if_statement -> IF LPAREN expression . RPAREN statement ELSE statement
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 86
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 78
+
+    (15) for_statement -> FOR LPAREN expression . SEMICOLON expression SEMICOLON expression RPAREN statement
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       shift and go to state 87
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 79
+
+    (16) while_statement -> WHILE LPAREN expression . RPAREN statement
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 88
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 80
+
+    (19) function_declaration -> FUNCTION ID LPAREN . parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (20) parameter_list -> . parameter_list COMMA VARIABLE
+    (21) parameter_list -> . VARIABLE
+    (22) parameter_list -> . empty
+    (50) empty -> .
+
+    VARIABLE        shift and go to state 90
+    RPAREN          reduce using rule 50 (empty -> .)
+    COMMA           reduce using rule 50 (empty -> .)
+
+    parameter_list                 shift and go to state 89
+    empty                          shift and go to state 91
+
+state 81
+
+    (17) echo_statement -> ECHO expression SEMICOLON .
+
+    RETURN          reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    PHP_OPEN        reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    ID              reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    VARIABLE        reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    MINUS           reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    LPAREN          reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    NUMBER          reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    STRING          reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    BOOLEAN         reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    IF              reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    FOR             reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    WHILE           reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    FUNCTION        reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    ECHO            reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    PRINT           reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    $end            reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    PHP_CLOSE       reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    ELSE            reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+    RBLOCK          reduce using rule 17 (echo_statement -> ECHO expression SEMICOLON .)
+
+
+state 82
+
+    (18) print_statement -> PRINT expression SEMICOLON .
+
+    RETURN          reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    PHP_OPEN        reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    ID              reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    VARIABLE        reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    MINUS           reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    LPAREN          reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    NUMBER          reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    STRING          reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    BOOLEAN         reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    IF              reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    FOR             reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    WHILE           reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    FUNCTION        reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    ECHO            reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    PRINT           reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    $end            reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    PHP_CLOSE       reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    ELSE            reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+    RBLOCK          reduce using rule 18 (print_statement -> PRINT expression SEMICOLON .)
+
+
+state 83
+
+    (23) expression -> ID LPAREN argument_list RPAREN .
+
+    SEMICOLON       reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    PLUS            reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    MINUS           reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    TIMES           reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    MODULE          reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    DOT             reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    ISEQUAL         reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    NOTISEQUAL      reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    GREATERTHAN     reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    LESSTHAN        reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    GREATERTHANEQUAL reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    LESSEQUAL       reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    AND             reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    OR              reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    RPAREN          reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+    COMMA           reduce using rule 23 (expression -> ID LPAREN argument_list RPAREN .)
+
+
+state 84
+
+    (25) argument_list -> argument_list COMMA . expression
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 92
+
+state 85
+
+    (24) expression -> VARIABLE LPAREN argument_list RPAREN .
+
+    SEMICOLON       reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    PLUS            reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    MINUS           reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    TIMES           reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    MODULE          reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    DOT             reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    ISEQUAL         reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    NOTISEQUAL      reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    GREATERTHAN     reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    LESSTHAN        reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    GREATERTHANEQUAL reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    LESSEQUAL       reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    AND             reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    OR              reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    RPAREN          reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+    COMMA           reduce using rule 24 (expression -> VARIABLE LPAREN argument_list RPAREN .)
+
+
+state 86
+
+    (13) if_statement -> IF LPAREN expression RPAREN . statement
+    (14) if_statement -> IF LPAREN expression RPAREN . statement ELSE statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 93
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 87
+
+    (15) for_statement -> FOR LPAREN expression SEMICOLON . expression SEMICOLON expression RPAREN statement
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 94
+
+state 88
+
+    (16) while_statement -> WHILE LPAREN expression RPAREN . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 95
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 89
+
+    (19) function_declaration -> FUNCTION ID LPAREN parameter_list . RPAREN LBLOCK statement_list RBLOCK
+    (20) parameter_list -> parameter_list . COMMA VARIABLE
+
+    RPAREN          shift and go to state 96
+    COMMA           shift and go to state 97
+
+
+state 90
+
+    (21) parameter_list -> VARIABLE .
+
+    RPAREN          reduce using rule 21 (parameter_list -> VARIABLE .)
+    COMMA           reduce using rule 21 (parameter_list -> VARIABLE .)
+
+
+state 91
+
+    (22) parameter_list -> empty .
+
+    RPAREN          reduce using rule 22 (parameter_list -> empty .)
+    COMMA           reduce using rule 22 (parameter_list -> empty .)
+
+
+state 92
+
+    (25) argument_list -> argument_list COMMA expression .
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    RPAREN          reduce using rule 25 (argument_list -> argument_list COMMA expression .)
+    COMMA           reduce using rule 25 (argument_list -> argument_list COMMA expression .)
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 93
+
+    (13) if_statement -> IF LPAREN expression RPAREN statement .
+    (14) if_statement -> IF LPAREN expression RPAREN statement . ELSE statement
+
+    RETURN          reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    PHP_OPEN        reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    ID              reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    VARIABLE        reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    MINUS           reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    LPAREN          reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    NUMBER          reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    STRING          reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    BOOLEAN         reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    IF              reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    FOR             reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    WHILE           reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    FUNCTION        reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    ECHO            reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    PRINT           reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    $end            reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    PHP_CLOSE       reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    RBLOCK          reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .)
+    ELSE            shift and go to state 98
+
+  ! ELSE            [ reduce using rule 13 (if_statement -> IF LPAREN expression RPAREN statement .) ]
+
+
+state 94
+
+    (15) for_statement -> FOR LPAREN expression SEMICOLON expression . SEMICOLON expression RPAREN statement
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    SEMICOLON       shift and go to state 99
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 95
+
+    (16) while_statement -> WHILE LPAREN expression RPAREN statement .
+
+    RETURN          reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    PHP_OPEN        reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    ID              reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    VARIABLE        reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    MINUS           reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    LPAREN          reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    NUMBER          reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    STRING          reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    BOOLEAN         reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    IF              reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    FOR             reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    WHILE           reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    FUNCTION        reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    ECHO            reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    PRINT           reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    $end            reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    PHP_CLOSE       reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    ELSE            reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+    RBLOCK          reduce using rule 16 (while_statement -> WHILE LPAREN expression RPAREN statement .)
+
+
+state 96
+
+    (19) function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN . LBLOCK statement_list RBLOCK
+
+    LBLOCK          shift and go to state 100
+
+
+state 97
+
+    (20) parameter_list -> parameter_list COMMA . VARIABLE
+
+    VARIABLE        shift and go to state 101
+
+
+state 98
+
+    (14) if_statement -> IF LPAREN expression RPAREN statement ELSE . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 102
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 99
+
+    (15) for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON . expression RPAREN statement
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+
+    expression                     shift and go to state 103
+
+state 100
+
+    (19) function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK . statement_list RBLOCK
+    (2) statement_list -> . statement_list statement
+    (3) statement_list -> . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    statement_list                 shift and go to state 104
+    statement                      shift and go to state 3
+    expression                     shift and go to state 4
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 101
+
+    (20) parameter_list -> parameter_list COMMA VARIABLE .
+
+    RPAREN          reduce using rule 20 (parameter_list -> parameter_list COMMA VARIABLE .)
+    COMMA           reduce using rule 20 (parameter_list -> parameter_list COMMA VARIABLE .)
+
+
+state 102
+
+    (14) if_statement -> IF LPAREN expression RPAREN statement ELSE statement .
+
+    RETURN          reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    PHP_OPEN        reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    ID              reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    VARIABLE        reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    MINUS           reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    LPAREN          reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    NUMBER          reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    STRING          reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    BOOLEAN         reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    IF              reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    FOR             reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    WHILE           reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    FUNCTION        reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    ECHO            reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    PRINT           reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    $end            reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    PHP_CLOSE       reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    ELSE            reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+    RBLOCK          reduce using rule 14 (if_statement -> IF LPAREN expression RPAREN statement ELSE statement .)
+
+
+state 103
+
+    (15) for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression . RPAREN statement
+    (28) expression -> expression . PLUS expression
+    (29) expression -> expression . MINUS expression
+    (30) expression -> expression . TIMES expression
+    (31) expression -> expression . MODULE expression
+    (32) expression -> expression . DOT expression
+    (33) expression -> expression . ISEQUAL expression
+    (34) expression -> expression . NOTISEQUAL expression
+    (35) expression -> expression . GREATERTHAN expression
+    (36) expression -> expression . LESSTHAN expression
+    (37) expression -> expression . GREATERTHANEQUAL expression
+    (38) expression -> expression . LESSEQUAL expression
+    (39) expression -> expression . AND expression
+    (40) expression -> expression . OR expression
+
+    RPAREN          shift and go to state 105
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULE          shift and go to state 31
+    DOT             shift and go to state 32
+    ISEQUAL         shift and go to state 33
+    NOTISEQUAL      shift and go to state 34
+    GREATERTHAN     shift and go to state 35
+    LESSTHAN        shift and go to state 36
+    GREATERTHANEQUAL shift and go to state 37
+    LESSEQUAL       shift and go to state 38
+    AND             shift and go to state 39
+    OR              shift and go to state 40
+
+
+state 104
+
+    (19) function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list . RBLOCK
+    (2) statement_list -> statement_list . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RBLOCK          shift and go to state 106
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    statement                      shift and go to state 26
+    expression                     shift and go to state 4
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 105
+
+    (15) for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN . statement
+    (4) statement -> . expression SEMICOLON
+    (5) statement -> . if_statement
+    (6) statement -> . for_statement
+    (7) statement -> . while_statement
+    (8) statement -> . function_declaration
+    (9) statement -> . echo_statement
+    (10) statement -> . print_statement
+    (11) statement -> . RETURN expression SEMICOLON
+    (12) statement -> . PHP_OPEN statement_list PHP_CLOSE
+    (23) expression -> . ID LPAREN argument_list RPAREN
+    (24) expression -> . VARIABLE LPAREN argument_list RPAREN
+    (28) expression -> . expression PLUS expression
+    (29) expression -> . expression MINUS expression
+    (30) expression -> . expression TIMES expression
+    (31) expression -> . expression MODULE expression
+    (32) expression -> . expression DOT expression
+    (33) expression -> . expression ISEQUAL expression
+    (34) expression -> . expression NOTISEQUAL expression
+    (35) expression -> . expression GREATERTHAN expression
+    (36) expression -> . expression LESSTHAN expression
+    (37) expression -> . expression GREATERTHANEQUAL expression
+    (38) expression -> . expression LESSEQUAL expression
+    (39) expression -> . expression AND expression
+    (40) expression -> . expression OR expression
+    (41) expression -> . MINUS expression
+    (42) expression -> . VARIABLE INCREMENT
+    (43) expression -> . VARIABLE DECREMENT
+    (44) expression -> . LPAREN expression RPAREN
+    (45) expression -> . NUMBER
+    (46) expression -> . VARIABLE
+    (47) expression -> . STRING
+    (48) expression -> . BOOLEAN
+    (49) expression -> . VARIABLE EQUAL expression
+    (13) if_statement -> . IF LPAREN expression RPAREN statement
+    (14) if_statement -> . IF LPAREN expression RPAREN statement ELSE statement
+    (15) for_statement -> . FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement
+    (16) while_statement -> . WHILE LPAREN expression RPAREN statement
+    (19) function_declaration -> . FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK
+    (17) echo_statement -> . ECHO expression SEMICOLON
+    (18) print_statement -> . PRINT expression SEMICOLON
+
+    RETURN          shift and go to state 11
+    PHP_OPEN        shift and go to state 12
+    ID              shift and go to state 13
+    VARIABLE        shift and go to state 15
+    MINUS           shift and go to state 16
+    LPAREN          shift and go to state 14
+    NUMBER          shift and go to state 17
+    STRING          shift and go to state 18
+    BOOLEAN         shift and go to state 19
+    IF              shift and go to state 20
+    FOR             shift and go to state 21
+    WHILE           shift and go to state 22
+    FUNCTION        shift and go to state 23
+    ECHO            shift and go to state 24
+    PRINT           shift and go to state 25
+
+    expression                     shift and go to state 4
+    statement                      shift and go to state 107
+    if_statement                   shift and go to state 5
+    for_statement                  shift and go to state 6
+    while_statement                shift and go to state 7
+    function_declaration           shift and go to state 8
+    echo_statement                 shift and go to state 9
+    print_statement                shift and go to state 10
+
+state 106
+
+    (19) function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .
+
+    RETURN          reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    PHP_OPEN        reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    ID              reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    VARIABLE        reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    MINUS           reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    LPAREN          reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    NUMBER          reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    STRING          reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    BOOLEAN         reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    IF              reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    FOR             reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    WHILE           reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    FUNCTION        reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    ECHO            reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    PRINT           reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    $end            reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    PHP_CLOSE       reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    ELSE            reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+    RBLOCK          reduce using rule 19 (function_declaration -> FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK .)
+
+
+state 107
+
+    (15) for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .
+
+    RETURN          reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    PHP_OPEN        reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    ID              reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    VARIABLE        reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    MINUS           reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    LPAREN          reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    NUMBER          reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    STRING          reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    BOOLEAN         reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    IF              reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    FOR             reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    WHILE           reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    FUNCTION        reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    ECHO            reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    PRINT           reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    $end            reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    PHP_CLOSE       reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    ELSE            reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+    RBLOCK          reduce using rule 15 (for_statement -> FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement .)
+
