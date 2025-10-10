@@ -1,9 +1,13 @@
+# minic_parserphp.py
 import ply.yacc as yacc
 from miniPHP_lexer_v2 import tokens
 
-# -----------------------------
-# Precedencia de operadores
-# -----------------------------
+# Bandera para saber si hubo error sintáctico
+parse_error_reported = False
+
+# ==================================================
+# PRECEDENCIA DE OPERADORES (incluye DIVIDE ahora)
+# ==================================================
 precedence = (
     ('right', 'ELSE'),
     ('left', 'EQUAL'),
@@ -11,20 +15,36 @@ precedence = (
     ('left', 'ISEQUAL', 'NOTISEQUAL', 'GREATERTHAN', 'LESSTHAN', 'GREATERTHANEQUAL', 'LESSEQUAL'),
     ('left', 'DOT'),
     ('left', 'PLUS', 'MINUS'),
-    ('left', 'TIMES', 'MODULE'),
+    ('left', 'TIMES', 'DIVIDE', 'MODULE'),
     ('right', 'UMINUS', 'INCREMENT', 'DECREMENT'),
 )
 
-# -----------------------------
-# Programa principal
-# -----------------------------
+# ==================================================
+# PROGRAMA: aceptar múltiples segmentos PHP y no-PHP
+# ==================================================
 def p_program(p):
-    '''program : PHP_OPEN statement_list PHP_CLOSE
+    '''program : segment_list'''
+    p[0] = ('program', p[1])
+
+def p_segment_list(p):
+    '''segment_list : segment_list segment
+                    | segment'''
+    if len(p) == 3:
+        p[0] = p[1] + [p[2]]
+    else:
+        p[0] = [p[1]]
+
+def p_segment(p):
+    '''segment : PHP_OPEN statement_list PHP_CLOSE
                | PHP_OPEN statement_list
                | statement_list PHP_CLOSE
                | statement_list'''
-    p[0] = ('program', p[1:])
+    # Simplificar: guardamos el contenido del segmento (sin importar si viene con open/close)
+    p[0] = ('segment', p[1:])
 
+# ==================================================
+# LISTA DE SENTENCIAS
+# ==================================================
 def p_statement_list(p):
     '''statement_list : statement_list statement
                       | statement'''
@@ -33,9 +53,9 @@ def p_statement_list(p):
     else:
         p[0] = [p[1]]
 
-# -----------------------------
-# Sentencias
-# -----------------------------
+# ==================================================
+# SENTENCIAS
+# ==================================================
 def p_statement(p):
     '''statement : expression SEMICOLON
                  | if_statement
@@ -46,14 +66,22 @@ def p_statement(p):
                  | print_statement
                  | block
                  | RETURN expression SEMICOLON'''
-    if len(p) == 3 and p[1] == 'return':
+    # 'RETURN expression ;' llega como tokens RETURN expression SEMICOLON
+    if len(p) == 4 and p[1] == 'return':
         p[0] = ('return', p[2])
     else:
         p[0] = p[1]
 
-# -----------------------------
-# If / Else
-# -----------------------------
+# ==================================================
+# BLOQUES { ... }
+# ==================================================
+def p_block(p):
+    'block : LBLOCK statement_list RBLOCK'
+    p[0] = ('block', p[2])
+
+# ==================================================
+# IF / ELSE
+# ==================================================
 def p_if_statement(p):
     '''if_statement : IF LPAREN expression RPAREN statement %prec ELSE
                     | IF LPAREN expression RPAREN statement ELSE statement'''
@@ -62,23 +90,23 @@ def p_if_statement(p):
     else:
         p[0] = ('if', p[3], p[5], p[7])
 
-# -----------------------------
-# For
-# -----------------------------
+# ==================================================
+# FOR
+# ==================================================
 def p_for_statement(p):
     'for_statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement'
     p[0] = ('for', p[3], p[5], p[7], p[9])
 
-# -----------------------------
-# While
-# -----------------------------
+# ==================================================
+# WHILE
+# ==================================================
 def p_while_statement(p):
     'while_statement : WHILE LPAREN expression RPAREN statement'
     p[0] = ('while', p[3], p[5])
 
-# -----------------------------
-# Echo y Print
-# -----------------------------
+# ==================================================
+# ECHO / PRINT
+# ==================================================
 def p_echo_statement(p):
     'echo_statement : ECHO expression SEMICOLON'
     p[0] = ('echo', p[2])
@@ -87,9 +115,9 @@ def p_print_statement(p):
     'print_statement : PRINT expression SEMICOLON'
     p[0] = ('print', p[2])
 
-# -----------------------------
-# Declaración de funciones
-# -----------------------------
+# ==================================================
+# DECLARACIÓN DE FUNCIONES
+# ==================================================
 def p_function_declaration(p):
     'function_declaration : FUNCTION ID LPAREN parameter_list RPAREN block'
     p[0] = ('function', p[2], p[4], p[6])
@@ -105,9 +133,9 @@ def p_parameter_list(p):
     else:
         p[0] = []
 
-# -----------------------------
-# Llamadas a función
-# -----------------------------
+# ==================================================
+# LLAMADAS A FUNCIÓN
+# ==================================================
 def p_expression_function_call(p):
     '''expression : ID LPAREN argument_list RPAREN
                   | VARIABLE LPAREN argument_list RPAREN'''
@@ -124,13 +152,16 @@ def p_argument_list(p):
     else:
         p[0] = []
 
-# -----------------------------
-# Expresiones
-# -----------------------------
+# ==================================================
+# EXPRESIONES
+# - incluye DIVIDE
+# - soporta prefix ++/-- y postfix ++/--
+# ==================================================
 def p_expression_binop(p):
     '''expression : expression PLUS expression
                   | expression MINUS expression
                   | expression TIMES expression
+                  | expression DIVIDE expression
                   | expression MODULE expression
                   | expression DOT expression
                   | expression ISEQUAL expression
@@ -147,10 +178,18 @@ def p_expression_uminus(p):
     'expression : MINUS expression %prec UMINUS'
     p[0] = ('uminus', p[2])
 
-def p_expression_increment(p):
+# postfix increments/decrements: $i++  $i--
+def p_expression_postfix_update(p):
     '''expression : VARIABLE INCREMENT
                   | VARIABLE DECREMENT'''
-    p[0] = ('update', p[2], p[1])
+    # p[1] = VARIABLE, p[2] = '++' o '--'
+    p[0] = ('postupdate', p[2], p[1])
+
+# prefix increments/decrements: ++$i  --$i
+def p_expression_prefix_update(p):
+    '''expression : INCREMENT VARIABLE
+                  | DECREMENT VARIABLE'''
+    p[0] = ('preupdate', p[1], p[2])
 
 def p_expression_group(p):
     'expression : LPAREN expression RPAREN'
@@ -176,81 +215,55 @@ def p_expression_assign(p):
     'expression : VARIABLE EQUAL expression'
     p[0] = ('assign', p[1], p[3])
 
-# -----------------------------
-# Vacío
-# -----------------------------
+# ==================================================
+# VACÍO
+# ==================================================
 def p_empty(p):
     'empty :'
     pass
 
-# -----------------------------
-# Manejo de errores
-# -----------------------------
+# ==================================================
+# MANEJO DE ERRORES
+# ==================================================
 def p_error(p):
-    """
-    Maneja errores sintácticos con mensajes claros, contextuales y sin duplicados.
-    Detecta funciones incompletas, bloques sin cerrar y cierres prematuros de PHP.
-    """
-
-    # Caso: fin de archivo inesperado
-    if not p:
-        if not hasattr(p_error, "already_reported"):
-            print("❌ Error sintáctico: fin de archivo inesperado. Es posible que falte una llave '}', un paréntesis ')' o cerrar una estructura como 'if' o 'function'.")
-            p_error.already_reported = True
+    global parse_error_reported
+    if parse_error_reported:
+        # evitamos spam de errores
         return
 
-    # Evitar mensajes repetidos
-    if hasattr(p_error, "already_reported") and p_error.already_reported:
+    parse_error_reported = True
+
+    # Caso: fin de archivo inesperado (p is None)
+    if not p:
+        print("❌ Error sintáctico: fin de archivo inesperado. Falta cerrar un bloque, paréntesis o llave.")
         return
 
     value = getattr(p, "value", "?")
     lineno = getattr(p, "lineno", "?")
-    code_before = p.lexer.lexdata[:p.lexpos].lower()
+    code_before = p.lexer.lexdata[:p.lexpos]
 
-    # --- CASOS ESPECÍFICOS ---
-
-    # 1️⃣ Cierre PHP prematuro
-    if value == "?>":
-        if "function" in code_before.split()[-3:]:
-            print(f"❌ Error sintáctico en la línea {lineno}: declaración de función incompleta. Falta el nombre, los paréntesis o las llaves de apertura.")
-        elif any(kw in code_before for kw in ["if (", "while (", "for ("]):
-            print(f"❌ Error sintáctico en la línea {lineno}: se encontró el cierre '?>' antes de cerrar correctamente un bloque (por ejemplo, 'if', 'while' o 'for').")
-        else:
-            print(f"❌ Error sintáctico en la línea {lineno}: se encontró el cierre '?>' antes de completar una estructura (por ejemplo, una función o condicional).")
-
-    # 2️⃣ Función mal declarada directamente
-    elif value.lower() == "function":
-        print(f"❌ Error sintáctico en la línea {lineno}: declaración de función incompleta. Falta el nombre o los paréntesis de parámetros.")
-
-    # 3️⃣ Paréntesis sin cerrar antes de llave
-    elif value == "{":
-        if any(kw in code_before[-10:] for kw in ["if", "while", "for"]):
-            print(f"❌ Error sintáctico en la línea {lineno}: falta cerrar un paréntesis ')' en la condición antes de la llave '{{'.")
-        else:
-            print(f"❌ Error sintáctico en la línea {lineno}: llave '{{' inesperada o mal posicionada.")
-
-    # 4️⃣ Llave de cierre sin apertura
+    # Casos específicos (basados en tokens)
+    if value == "{":
+        print(f"❌ Error sintáctico en la línea {lineno}: falta cerrar paréntesis antes de '{{'.")
     elif value == "}":
-        print(f"❌ Error sintáctico en la línea {lineno}: llave '}}' sin apertura correspondiente.")
-
-    # 5️⃣ Identificador fuera de contexto
-    elif value.isidentifier():
-        print(f"❌ Error sintáctico en la línea {lineno}: token inesperado '{value}'. Es posible que falte un paréntesis o una llave.")
-
-    # 6️⃣ Cualquier otro token
+        print(f"❌ Error sintáctico en la línea {lineno}: llave '}}' sin apertura.")
+    elif value == "(":
+        print(f"❌ Error sintáctico en la línea {lineno}: paréntesis sin cierre.")
+    elif isinstance(value, str) and value.lower() == "function":
+        print(f"❌ Error sintáctico en la línea {lineno}: declaración de función incompleta o sin nombre.")
+    elif value == "?>":
+        print(f"❌ Error sintáctico en la línea {lineno}: cierre de PHP prematuro.")
+    elif value in ["+", "*", "&&", "||", "/", "*"]:
+        print(f"❌ Error sintáctico en la línea {lineno}: operador '{value}' mal ubicado.")
     else:
+        # Valor por defecto
         print(f"❌ Error sintáctico en la línea {lineno}: token inesperado '{value}'.")
 
-    # Evita duplicados posteriores
-    p_error.already_reported = True
     parser.errok()
- 
 
-
-
-# -----------------------------
-# Construcción del parser
-# -----------------------------
+# ==================================================
+# CONSTRUCCIÓN DEL PARSER
+# ==================================================
 parser = yacc.yacc()
 
 if __name__ == "__main__":
@@ -262,6 +275,12 @@ if __name__ == "__main__":
     with open(sys.argv[1], 'r', encoding='utf-8') as f:
         data = f.read()
 
-    result = parser.parse(data)
-    print("✅ El parser reconoció correctamente todo el código PHP")
+    # Reset flag antes de parsear
+    parse_error_reported = False
 
+    try:
+        result = parser.parse(data)
+        if not parse_error_reported:
+            print("✅ El parser reconoció correctamente todo el código PHP")
+    except Exception as e:
+        print("❌ Error sintáctico no manejado:", str(e))

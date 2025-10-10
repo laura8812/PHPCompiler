@@ -12,7 +12,7 @@ tokens = [
 
     # Operadores aritméticos y lógicos
     'PLUS', 'MINUS', 'TIMES', 'MODULE',
-    'EQUAL',
+    'EQUAL','DIVIDE',
     'ISEQUAL', 'NOTISEQUAL',
     'LESSTHAN', 'GREATERTHAN', 'LESSEQUAL', 'GREATERTHANEQUAL',
     'AND', 'OR',
@@ -73,7 +73,8 @@ t_AND               = r'&&'
 t_OR                = r'\|\|'
 t_INCREMENT         = r'\+\+'
 t_DECREMENT         = r'--'
-t_DOT               = r'\.'  # 👈 operador de concatenación en PHP
+t_DOT               = r'\.'  
+t_DIVIDE = r'/'
 
 # Delimitadores
 t_LPAREN    = r'\('
