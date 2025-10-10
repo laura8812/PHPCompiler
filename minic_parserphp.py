@@ -19,8 +19,11 @@ precedence = (
 # Programa principal
 # -----------------------------
 def p_program(p):
-    'program : statement_list'
-    p[0] = ('program', p[1])
+    '''program : PHP_OPEN statement_list PHP_CLOSE
+               | PHP_OPEN statement_list
+               | statement_list PHP_CLOSE
+               | statement_list'''
+    p[0] = ('program', p[1:])
 
 def p_statement_list(p):
     '''statement_list : statement_list statement
@@ -41,12 +44,10 @@ def p_statement(p):
                  | function_declaration
                  | echo_statement
                  | print_statement
-                 | RETURN expression SEMICOLON
-                 | PHP_OPEN statement_list PHP_CLOSE'''
+                 | block
+                 | RETURN expression SEMICOLON'''
     if len(p) == 3 and p[1] == 'return':
         p[0] = ('return', p[2])
-    elif len(p) == 4 and p[1] == '<?php':
-        p[0] = p[2]
     else:
         p[0] = p[1]
 
@@ -90,8 +91,8 @@ def p_print_statement(p):
 # Declaración de funciones
 # -----------------------------
 def p_function_declaration(p):
-    'function_declaration : FUNCTION ID LPAREN parameter_list RPAREN LBLOCK statement_list RBLOCK'
-    p[0] = ('function', p[2], p[4], p[7])
+    'function_declaration : FUNCTION ID LPAREN parameter_list RPAREN block'
+    p[0] = ('function', p[2], p[4], p[6])
 
 def p_parameter_list(p):
     '''parameter_list : parameter_list COMMA VARIABLE
@@ -186,10 +187,66 @@ def p_empty(p):
 # Manejo de errores
 # -----------------------------
 def p_error(p):
-    if p:
-        print(f"❌ Error sintáctico en la línea {p.lineno}: token inesperado '{p.value}'")
+    """
+    Maneja errores sintácticos con mensajes claros, contextuales y sin duplicados.
+    Detecta funciones incompletas, bloques sin cerrar y cierres prematuros de PHP.
+    """
+
+    # Caso: fin de archivo inesperado
+    if not p:
+        if not hasattr(p_error, "already_reported"):
+            print("❌ Error sintáctico: fin de archivo inesperado. Es posible que falte una llave '}', un paréntesis ')' o cerrar una estructura como 'if' o 'function'.")
+            p_error.already_reported = True
+        return
+
+    # Evitar mensajes repetidos
+    if hasattr(p_error, "already_reported") and p_error.already_reported:
+        return
+
+    value = getattr(p, "value", "?")
+    lineno = getattr(p, "lineno", "?")
+    code_before = p.lexer.lexdata[:p.lexpos].lower()
+
+    # --- CASOS ESPECÍFICOS ---
+
+    # 1️⃣ Cierre PHP prematuro
+    if value == "?>":
+        if "function" in code_before.split()[-3:]:
+            print(f"❌ Error sintáctico en la línea {lineno}: declaración de función incompleta. Falta el nombre, los paréntesis o las llaves de apertura.")
+        elif any(kw in code_before for kw in ["if (", "while (", "for ("]):
+            print(f"❌ Error sintáctico en la línea {lineno}: se encontró el cierre '?>' antes de cerrar correctamente un bloque (por ejemplo, 'if', 'while' o 'for').")
+        else:
+            print(f"❌ Error sintáctico en la línea {lineno}: se encontró el cierre '?>' antes de completar una estructura (por ejemplo, una función o condicional).")
+
+    # 2️⃣ Función mal declarada directamente
+    elif value.lower() == "function":
+        print(f"❌ Error sintáctico en la línea {lineno}: declaración de función incompleta. Falta el nombre o los paréntesis de parámetros.")
+
+    # 3️⃣ Paréntesis sin cerrar antes de llave
+    elif value == "{":
+        if any(kw in code_before[-10:] for kw in ["if", "while", "for"]):
+            print(f"❌ Error sintáctico en la línea {lineno}: falta cerrar un paréntesis ')' en la condición antes de la llave '{{'.")
+        else:
+            print(f"❌ Error sintáctico en la línea {lineno}: llave '{{' inesperada o mal posicionada.")
+
+    # 4️⃣ Llave de cierre sin apertura
+    elif value == "}":
+        print(f"❌ Error sintáctico en la línea {lineno}: llave '}}' sin apertura correspondiente.")
+
+    # 5️⃣ Identificador fuera de contexto
+    elif value.isidentifier():
+        print(f"❌ Error sintáctico en la línea {lineno}: token inesperado '{value}'. Es posible que falte un paréntesis o una llave.")
+
+    # 6️⃣ Cualquier otro token
     else:
-        print("❌ Error sintáctico: fin de archivo inesperado")
+        print(f"❌ Error sintáctico en la línea {lineno}: token inesperado '{value}'.")
+
+    # Evita duplicados posteriores
+    p_error.already_reported = True
+    parser.errok()
+ 
+
+
 
 # -----------------------------
 # Construcción del parser
@@ -207,3 +264,4 @@ if __name__ == "__main__":
 
     result = parser.parse(data)
     print("✅ El parser reconoció correctamente todo el código PHP")
+
