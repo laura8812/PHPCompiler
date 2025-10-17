@@ -1,7 +1,6 @@
 import ply.yacc as yacc
 from miniPHP_lexer_v2 import tokens
 
-
 parse_error_reported = False
 
 precedence = (
@@ -31,7 +30,6 @@ def p_segment(p):
     '''segment : PHP_OPEN statement_list PHP_CLOSE'''
     p[0] = ('segment', p[1:])
 
-
 def p_statement_list(p):
     '''statement_list : statement_list statement
                       | statement'''
@@ -45,6 +43,7 @@ def p_statement(p):
                  | if_statement
                  | for_statement
                  | while_statement
+                 | foreach_statement
                  | function_declaration
                  | echo_statement
                  | print_statement
@@ -74,6 +73,10 @@ def p_for_statement(p):
 def p_while_statement(p):
     'while_statement : WHILE LPAREN expression RPAREN statement'
     p[0] = ('while', p[3], p[5])
+
+def p_foreach_statement(p):
+    'foreach_statement : FOREACH LPAREN expression AS VARIABLE RPAREN statement'
+    p[0] = ('foreach', p[3], p[5], p[7])
 
 def p_echo_statement(p):
     'echo_statement : ECHO expression SEMICOLON'
@@ -131,7 +134,33 @@ def p_expression_binop(p):
                   | expression OR expression'''
     p[0] = ('binop', p[2], p[1], p[3])
 
-# Operador Unario negativo
+def p_expression_array(p):
+    'expression : ARRAY LPAREN array_elements RPAREN'
+    p[0] = ('array', p[3])
+
+def p_expression_short_array(p):
+    'expression : LBRACKET array_elements RBRACKET'
+    p[0] = ('array', p[2])
+
+def p_expression_empty_array(p):
+    'expression : LBRACKET RBRACKET'
+    p[0] = ('array', [])
+
+def p_array_elements(p):
+    '''array_elements : array_elements COMMA expression
+                      | expression
+                      | empty'''
+    if len(p) == 4:
+        p[0] = p[1] + [p[3]]
+    elif len(p) == 2 and p[1] is not None:
+        p[0] = [p[1]]
+    else:
+        p[0] = []
+
+def p_expression_array_access(p):
+    'expression : VARIABLE LBRACKET expression RBRACKET'
+    p[0] = ('array_access', p[1], p[3])
+
 def p_expression_uminus(p):
     'expression : MINUS expression %prec UMINUS'
     p[0] = ('uminus', p[2])
@@ -173,6 +202,7 @@ def p_expression_assign(p):
 def p_empty(p):
     'empty :'
     pass
+
 def p_error(p):
     global parse_error_reported
     if parse_error_reported:
@@ -180,7 +210,6 @@ def p_error(p):
 
     parse_error_reported = True
 
-    # Caso de error al final del archivo
     if not p:
         print("Error sintáctico: fin de archivo inesperado. Falta cerrar un bloque, paréntesis o llave.")
         return
@@ -188,7 +217,6 @@ def p_error(p):
     value = getattr(p, "value", "?")
     lineno = getattr(p, "lineno", "?")
 
-    # Casos específicos
     if value == "{":
         print(f"Error sintáctico en la línea {lineno}: falta cerrar paréntesis antes de '{{'.")
     elif value == "}":

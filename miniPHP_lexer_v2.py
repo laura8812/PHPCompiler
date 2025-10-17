@@ -1,172 +1,60 @@
 import ply.lex as lex
 import sys
 
-#Tokens list
+#Tokens list - Solo los esenciales
 tokens = (
     "PHP_OPEN",
     "PHP_CLOSE",
     "IF",
     "ELSE",
-    "ELSEIF",
-    "ENDIF",
-    "SWITCH",
-    "CASE",
-    "BRAKE",
-    "DEFAULT",
     "FOREACH",
-    "AS",
     "FOR",
-    "ENDFOR",
-    "ENDFOREACH",
     "WHILE",
-    "ENDWHILE",
-    "DO",
+    "AS",
     "FUNCTION",
     "RETURN",
-    "GLOBAL",
-    "STATIC",
-    "TRY",
-    "CATCH",
-    "FINALLY",
-    "THROW",
     "ECHO",
     "PRINT",
-    "EMPTY",
     "ARRAY",
-    "LIST",
     "BOOLEAN",
 
-    "CLASS",
-    "NAMESPACE",
-    "USE",
-    "PUBLIC",
-    "PRIVATE",
-    "PROTECTED",
-    "EXTENDS",
-    "IMPLEMENTS",
-    "YIELD",
-    "MATCH",
-    "ENUM",
-    "DIR_CONST",
-    "FILE_CONST",
-    "LINE_CONST",
-    "FUNCTION_CONST",
-    "METHOD_CONST",
-    "NAMESPACE_CONST",
+    # Operadores y símbolos
+    "INCREMENT",
+    "DECREMENT",
+    "SEMICOLON",
+    "LBRACKET",
+    "RBRACKET",
+    "LBLOCK",
+    "RBLOCK",
+    "LPAREN",
+    "RPAREN",
+    "COMMA",
+    "PLUS",
+    "MINUS",
+    "TIMES",
+    "DIVIDE",
+    "MODULE",
+    "EQUAL",
+    "LESSTHAN",
+    "GREATERTHAN",
+    "LESSEQUAL",
+    "GREATERTHANEQUAL",
+    "ISEQUAL",
+    "NOTISEQUAL",
+    "AND",
+    "OR",
+    "DOT",
 
-    "PLUSEQUAL",          # +=
-    "MINUSEQUAL",         # -=
-    "INCREMENT",          # ++
-    "DECREMENT",          # --
-    "ARROW",              # ->
-    "DOUBLECOLON",        # ::
-    "DOUBLEARROW",        # =>
-    "SEMICOLON",          # ;
-    "LBRACKET",           # [
-    "RBRACKET",           # ]
-    "LBLOCK",             # {
-    "RBLOCK",             # }
-    "LPAREN",             # (
-    "RPAREN",             # )
-    "COMMA",              # ,
-    "PLUS",               # +
-    "MINUS",              # -
-    "TIMES",              # *
-    "DIVIDE",             # /
-    "MODULE",             # %
-    "EQUAL",              # =
-    "LESSTHAN",           # <
-    "GREATERTHAN",        # >
-    "LESSEQUAL",          # <=
-    "GREATERTHANEQUAL",   # >=
-    "ISEQUAL",            # ==
-    "NOTISEQUAL",         # !=
-    "AND",                # &&
-    "OR",                 # ||
-    "DOT",                # .
-
+    # Elementos básicos
     "VARIABLE",
-    "VARVAR",
     "STRING",
     "NUMBER",
     "ID",
 )
-def t_CLASS(t):
-    r'class'
-    return t
 
-def t_NAMESPACE(t):
-    r'namespace'
-    return t
-
-def t_USE(t):
-    r'use'
-    return t
-
-def t_PUBLIC(t):
-    r'public'
-    return t
-
-def t_PRIVATE(t):
-    r'private'
-    return t
-
-def t_PROTECTED(t):
-    r'protected'
-    return t
-
-def t_EXTENDS(t):
-    r'extends'
-    return t
-
-def t_IMPLEMENTS(t):
-    r'implements'
-    return t
-
-def t_YIELD(t):
-    r'yield'
-    return t
-
-def t_MATCH(t):
-    r'match'
-    return t
-
-def t_ENUM(t):
-    r'enum'
-    return t
-
-def t_DIR_CONST(t):
-    r'__DIR__'
-    return t
-
-def t_FILE_CONST(t):
-    r'__FILE__'
-    return t
-
-def t_LINE_CONST(t):
-    r'__LINE__'
-    return t
-
-def t_FUNCTION_CONST(t):
-    r'__FUNCTION__'
-    return t
-
-def t_METHOD_CONST(t):
-    r'__METHOD__'
-    return t
-
-def t_NAMESPACE_CONST(t):
-    r'__NAMESPACE__'
-    return t
-
-t_PLUSEQUAL = r'\+='  # +=
-t_MINUSEQUAL = r'-='   # -=
-t_INCREMENT = r'\+\+' # ++
-t_DECREMENT = r'--'    # --
-t_ARROW = r'->'        # ->
-t_DOUBLECOLON = r'::'  # ::
-t_DOUBLEARROW = r'=>'  # =>
-
+# Símbolos simples
+t_INCREMENT = r'\+\+'
+t_DECREMENT = r'--'
 t_SEMICOLON = r';'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
@@ -191,8 +79,6 @@ t_AND = r'&&'
 t_OR = r'\|\|'
 t_DOT = r'\.'
 
-
-
 def t_STRING(t):
     r'("([^\\\n]|(\\.))*?"|\'([^\\\n]|(\\.))*?\')'
     return t
@@ -215,90 +101,28 @@ def t_ELSE(t):
     r'else'
     return t
 
-def t_ELSEIF(t):
-    r'elseif'
-    return t
-
-def t_ENDIF(t):
-    r'endif'
-    return t
-
-def t_FUNCTION(t):
-    r'function'
-    return t
-
-def t_SWITCH(t):
-    r'switch'
-    return t
-
-def t_CASE(t):
-    r'case'
-    return t
-
-def t_VARIABLE(t):
-    r'\$[a-zA-Z_][\w]*' 
-    return t
-
-def t_VARVAR(t):
-    r'\${2}[a-zA-Z_][\w]*'
-    return t
-
-# Regla para cualquier uso inválido de $ (incluye $ suelto, $ con espacio, $ con número, etc.)
-def t_INVALID_VARIABLE(t):
-    r'\$[^a-zA-Z_]\S*'
-    print(f"Lexical error: Invalid variable usage '{t.value}' at line {t.lineno}")
-    t.lexer.skip(len(t.value))
-
 def t_FOREACH(t):
     r'foreach'
     return t
 
-def t_AS(t):
-    r'as'
-    return t
-
-def t_ENDFOREACH(t):
-    r'endforeach'
+def t_FOR(t):
+    r'for'
     return t
 
 def t_WHILE(t): 
     r'while'
     return t
 
-def t_ENDWHILE(t):
-    r'endwhile'
+def t_AS(t):
+    r'as'
     return t
 
-def t_DO(t):
-    r'do'
+def t_FUNCTION(t):
+    r'function'
     return t
 
 def t_RETURN(t):
     r'return'
-    return t
-
-def t_GLOBAL(t):
-    r'global'
-    return t
-
-def t_STATIC(t):
-    r'static'
-    return t    
-
-def t_TRY(t):
-    r'try'
-    return t
-
-def t_CATCH(t):
-    r'catch'
-    return t
-
-def t_FINALLY(t):
-    r'finally'
-    return t
-
-def t_THROW(t):
-    r'throw'
     return t
 
 def t_ECHO(t):
@@ -309,17 +133,19 @@ def t_PRINT(t):
     r'print'
     return t
 
-def t_EMPTY(t):
-    r'empty'
-    return t
-
 def t_ARRAY(t):
     r'array'
     return t
 
-def t_LIST(t):
-    r'list'
+def t_VARIABLE(t):
+    r'\$[a-zA-Z_][\w]*' 
     return t
+
+# Regla para cualquier uso inválido de $ (incluye $ suelto, $ con espacio, $ con número, etc.)
+def t_INVALID_VARIABLE(t):
+    r'\$[^a-zA-Z_]\S*'
+    print(f"Lexical error: Invalid variable usage '{t.value}' at line {t.lineno}")
+    t.lexer.skip(len(t.value))
 
 def t_NEWLINE(t):
     r'\n+'
@@ -345,8 +171,6 @@ def t_NUMBER(t):
     r'\d+(\.\d+)?((E|e)(\-)?\d+(\.\d+)?)?'
     return t
 
-
-
 def t_ID(t):
      r'(_|[a-z]|[A-Z])(\w)*'
      return t
@@ -365,7 +189,6 @@ def test(data, lexer):
 
 lexer = lex.lex()
 
- 
 if __name__ == '__main__':
 	if (len(sys.argv) > 1):
 		fin = sys.argv[1]
