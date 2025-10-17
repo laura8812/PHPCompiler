@@ -28,12 +28,9 @@ def p_segment_list(p):
         p[0] = [p[1]]
 
 def p_segment(p):
-    '''segment : PHP_OPEN statement_list PHP_CLOSE
-               | PHP_OPEN statement_list
-               | statement_list PHP_CLOSE
-               | statement_list'''
-    # Simplificar: guardamos el contenido del segmento (sin importar si viene con open/close)
+    '''segment : PHP_OPEN statement_list PHP_CLOSE'''
     p[0] = ('segment', p[1:])
+
 
 def p_statement_list(p):
     '''statement_list : statement_list statement
@@ -53,7 +50,6 @@ def p_statement(p):
                  | print_statement
                  | block
                  | RETURN expression SEMICOLON'''
-    # 'RETURN expression ;' llega como tokens RETURN expression SEMICOLON
     if len(p) == 4 and p[1] == 'return':
         p[0] = ('return', p[2])
     else:
@@ -135,6 +131,7 @@ def p_expression_binop(p):
                   | expression OR expression'''
     p[0] = ('binop', p[2], p[1], p[3])
 
+# Operador Unario negativo
 def p_expression_uminus(p):
     'expression : MINUS expression %prec UMINUS'
     p[0] = ('uminus', p[2])
@@ -142,7 +139,6 @@ def p_expression_uminus(p):
 def p_expression_postfix_update(p):
     '''expression : VARIABLE INCREMENT
                   | VARIABLE DECREMENT'''
-    # p[1] = VARIABLE, p[2] = '++' o '--'
     p[0] = ('postupdate', p[2], p[1])
 
 def p_expression_prefix_update(p):
@@ -184,16 +180,15 @@ def p_error(p):
 
     parse_error_reported = True
 
-    # Caso: fin de archivo inesperado (p is None)
+    # Caso de error al final del archivo
     if not p:
         print("Error sintáctico: fin de archivo inesperado. Falta cerrar un bloque, paréntesis o llave.")
         return
 
     value = getattr(p, "value", "?")
     lineno = getattr(p, "lineno", "?")
-    code_before = p.lexer.lexdata[:p.lexpos]
 
-    # Casos específicos (basados en tokens)
+    # Casos específicos
     if value == "{":
         print(f"Error sintáctico en la línea {lineno}: falta cerrar paréntesis antes de '{{'.")
     elif value == "}":
@@ -207,10 +202,9 @@ def p_error(p):
     elif value in ["+", "*", "&&", "||", "/", "*"]:
         print(f"Error sintáctico en la línea {lineno}: operador '{value}' mal ubicado.")
     else:
-        # Valor por defecto
         print(f"Error sintáctico en la línea {lineno}: token inesperado '{value}'.")
 
-    parser.errok()
+    raise Exception("Error sintáctico")
 
 parser = yacc.yacc()
 
