@@ -3,7 +3,6 @@ import sys
 
 #Tokens list
 tokens = (
-    # ===== Palabras reservadas =====
     "PHP_OPEN",
     "PHP_CLOSE",
     "IF",
@@ -37,7 +36,6 @@ tokens = (
     "LIST",
     "BOOLEAN",
 
-    # ===== Palabras reservadas modernas y constantes mágicas =====
     "CLASS",
     "NAMESPACE",
     "USE",
@@ -56,7 +54,6 @@ tokens = (
     "METHOD_CONST",
     "NAMESPACE_CONST",
 
-    # ===== Operadores y símbolos =====
     "PLUSEQUAL",          # +=
     "MINUSEQUAL",         # -=
     "INCREMENT",          # ++
@@ -75,6 +72,7 @@ tokens = (
     "PLUS",               # +
     "MINUS",              # -
     "TIMES",              # *
+    "DIVIDE",             # /
     "MODULE",             # %
     "EQUAL",              # =
     "LESSTHAN",           # <
@@ -87,19 +85,12 @@ tokens = (
     "OR",                 # ||
     "DOT",                # .
 
-    # ===== Identificadores y literales =====
     "VARIABLE",
     "VARVAR",
     "STRING",
     "NUMBER",
     "ID",
 )
-
-
-
-
-
-# Palabras reservadas modernas y constantes mágicas
 def t_CLASS(t):
     r'class'
     return t
@@ -167,6 +158,7 @@ def t_METHOD_CONST(t):
 def t_NAMESPACE_CONST(t):
     r'__NAMESPACE__'
     return t
+
 t_PLUSEQUAL = r'\+='  # +=
 t_MINUSEQUAL = r'-='   # -=
 t_INCREMENT = r'\+\+' # ++
@@ -186,6 +178,7 @@ t_COMMA = r','
 t_PLUS   = r'\+'
 t_MINUS  = r'-'
 t_TIMES  = r'\*'
+t_DIVIDE = r'/'
 t_MODULE = r'\%'
 t_EQUAL = r'='
 t_LESSTHAN = r'<'
@@ -348,8 +341,6 @@ def t_BOOLEAN(t):
     r'true|false'
     return t
 
-
-# Soporte para números decimales, hexadecimales, binarios y octales
 def t_NUMBER(t):
     r'\d+(\.\d+)?((E|e)(\-)?\d+(\.\d+)?)?'
     return t
@@ -385,4 +376,3 @@ if __name__ == '__main__':
 	print (data)
 	lexer.input(data)
 	test(data, lexer)
-
