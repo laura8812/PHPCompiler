@@ -67,8 +67,13 @@ def p_if_statement(p):
         p[0] = ('if', p[3], p[5], p[7])
 
 def p_for_statement(p):
-    'for_statement : FOR LPAREN expression SEMICOLON expression SEMICOLON expression RPAREN statement'
+    'for_statement : FOR LPAREN for_expr SEMICOLON for_expr SEMICOLON for_expr RPAREN statement'
     p[0] = ('for', p[3], p[5], p[7], p[9])
+    
+def p_for_expr(p):
+    '''for_expr : expression
+                | empty'''
+    p[0] = p[1]
 
 def p_while_statement(p):
     'while_statement : WHILE LPAREN expression RPAREN statement'
