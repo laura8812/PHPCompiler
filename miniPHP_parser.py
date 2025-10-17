@@ -217,7 +217,6 @@ if __name__ == "__main__":
     with open(sys.argv[1], 'r', encoding='utf-8') as f:
         data = f.read()
 
-    # Reset flag antes de parsear
     parse_error_reported = False
 
     try:
