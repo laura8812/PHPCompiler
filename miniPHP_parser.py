@@ -208,20 +208,22 @@ def p_error(p):
 
 parser = yacc.yacc()
 
-if __name__ == "__main__":
-    import sys
-    if len(sys.argv) < 2:
-        print("Uso: python minic_parserphp.py archivo.php")
-        sys.exit(1)
+if __name__ == '__main__':
 
-    with open(sys.argv[1], 'r', encoding='utf-8') as f:
+    import sys
+
+    if len(sys.argv) > 1:
+        fin = sys.argv[1]
+    else:
+        fin = 'basic.php'  # Archivo por defecto
+
+    with open(fin, 'r', encoding='utf-8') as f:
         data = f.read()
 
     parse_error_reported = False
 
     try:
-        result = parser.parse(data)
-        if not parse_error_reported:
-            print("Amiguito, tengo el placer de informar que Tu parser reconocio correctamente todo el código PHP")
+        parser.parse(data, tracking=True)
+        print("Amiguito, tengo el placer de informar que Tu parser reconocio correctamente todo el código PHP")
     except Exception as e:
         print("Error sintáctico:", str(e))
