@@ -27,7 +27,8 @@ def p_segment_list(p):
         p[0] = [p[1]]
 
 def p_segment(p):
-    '''segment : PHP_OPEN statement_list PHP_CLOSE'''
+    '''segment : PHP_OPEN statement_list PHP_CLOSE
+                | PHP_OPEN statement_list'''
     p[0] = ('segment', p[1:])
 
 def p_statement_list(p):
@@ -257,6 +258,9 @@ if __name__ == '__main__':
 
     try:
         parser.parse(data, tracking=True)
-        print("Amiguito, tengo el placer de informar que Tu parser reconocio correctamente todo el código PHP")
+        if parse_error_reported:
+            raise Exception("Error sintáctico previo detectado.")
+        else:
+            print("Amiguito, tengo el placer de informar que Tu parser reconocio correctamente todo el código PHP")
     except Exception as e:
         print("Error sintáctico:", str(e))
