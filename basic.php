@@ -1,37 +1,32 @@
 <?php
 // Ejemplo básico en PHP
+$a[$i][$j];
+$cars = array (
+  array("Volvo",22,18),
+  array("BMW",15,13),
+  array("Saab",5,2),
+  array("Land Rover",17,15)
+);
+/*
+$a = 15 + 12;                 
+$b = 17;
+$c = "hola" + "mundo"; 
+$d == 45;               
+$g = 10 + 6  ;
+class Person {
+     public $name;
+     public $surname;
+     public $age;
 
-// Variables
-$nombre = "Jhoan";
-$edad = 22;
-$activo = true;
+     public function __construct($name, $surname, $age){
 
-// Condicional
-# Comentario con hashtag
-if ($edad >= 18) {
-    echo "Hola, $nombre. Eres mayor de edad.<br>";
-} else {
-    echo "Hola, $nombre. Eres menor de edad.<br>";
-}
+       $this->name = $name;
+       $this->surname = $surname;
+       $this->age = $age;
+     }
+   }
 
-// Bucle for
-echo "Contando del 1 al 5:<br>";
-for ($i = 1; $i <= 5; $i++) {
-    echo $i . " ";
-}
-echo "<br>";
-
-// Array y foreach
-$colores = ["Rojo", "Verde", "Azul"];
-echo "Tus colores favoritos son:<br>";
-foreach ($colores as $color) {
-    echo "- $color<br>";
-}
-
-// Función
-function saludar($persona) {
-    return "¡Hola, " . $persona . "!";
-}
-
-echo saludar("Mundo");
+   $persona = new Person(‘Giuseppe’, ‘Verdi’, 56);
+$cars = array("Volvo", "BMW", "Toyota");
+*/
 ?>

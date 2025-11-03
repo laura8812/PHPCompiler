@@ -1,26 +1,44 @@
 import ply.lex as lex
 import sys
 
-#Tokens list - Solo los esenciales
-tokens = (
+#Tokens list
+tokens =(
+    # reserved words
     "PHP_OPEN",
     "PHP_CLOSE",
     "IF",
     "ELSE",
+    "ELSEIF",
+    "ENDIF",
+    "SWITCH",
+    "CASE",
+    "BRAKE",
+    "DEFAULT",
     "FOREACH",
+    "AS"
     "FOR",
+    "ENDFOR",
+    "ENDFOREACH",
     "WHILE",
-    "AS",
+    "ENDWHILE",
+    "DO",
     "FUNCTION",
     "RETURN",
+    "GLOBAL",
+    "STATIC",
+    "TRY",
+    "CATCH",
+    "FINALLY",
+    "THROW",
     "ECHO",
     "PRINT",
+    "EMPTY",
     "ARRAY",
+    "LIST",
     "BOOLEAN",
 
-    # Operadores y símbolos
-    "INCREMENT",
-    "DECREMENT",
+    # Symbols
+    "PESOS",
     "SEMICOLON",
     "LBRACKET",
     "RBRACKET",
@@ -44,17 +62,15 @@ tokens = (
     "AND",
     "OR",
     "DOT",
-
-    # Elementos básicos
-    "VARIABLE",
-    "STRING",
-    "NUMBER",
+    # other
     "ID",
+    "NUMBER",
+    "STRING",
+    "NEWLINE"
 )
 
-# Símbolos simples
-t_INCREMENT = r'\+\+'
-t_DECREMENT = r'--'
+# Regular expressions rules for a simple tokens 
+t_PESOS = r'\$'
 t_SEMICOLON = r';'
 t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
@@ -80,10 +96,22 @@ t_OR = r'\|\|'
 t_DOT = r'\.'
 
 def t_STRING(t):
-    r'("([^\\\n]|(\\.))*?"|\'([^\\\n]|(\\.))*?\')'
+    r'\".*?\"'
     return t
 
 t_ignore = ' \t'
+
+def t_BOOLEAN(t):
+    r'true|false'
+    return t
+
+def t_NUMBER(t):
+    r'\d+(\.\d+)?((E|e)(\-)?\d+(\.\d+)?)?'
+    return t
+
+def t_ID(t):
+    r'\w+(_\d\w)*'
+    return t
 
 def t_PHP_OPEN(t):
     r'\<\?php'
@@ -101,20 +129,60 @@ def t_ELSE(t):
     r'else'
     return t
 
-def t_FOREACH(t):
-    r'foreach'
+def t_ELSEIF(t):
+    r'elseif'
+    return t
+
+def t_ENDIF(t):
+    r'endif'
+    return t
+
+def t_SWITCH(t):
+    r'switch'
+    return t
+
+def t_CASE(t):
+    r'case'
+    return t
+
+def t_BRAKE(t):
+    r'break'
+    return t
+
+def t_DEFAULT(t):
+    r'default'
     return t
 
 def t_FOR(t):
     r'for'
+    return t    
+
+def t_ENDFOR(t):
+    r'endfor'
+    return t
+
+def t_FOREACH(t):
+    r'foreach'
+    return t
+
+def t_AS(t):
+    r'as'
+    return t
+
+def t_ENDFOREACH(t):
+    r'endforeach'
     return t
 
 def t_WHILE(t): 
     r'while'
     return t
 
-def t_AS(t):
-    r'as'
+def t_ENDWHILE(t):
+    r'endwhile'
+    return t
+
+def t_DO(t):
+    r'do'
     return t
 
 def t_FUNCTION(t):
@@ -125,6 +193,30 @@ def t_RETURN(t):
     r'return'
     return t
 
+def t_GLOBAL(t):
+    r'global'
+    return t
+
+def t_STATIC(t):
+    r'static'
+    return t    
+
+def t_TRY(t):
+    r'try'
+    return t
+
+def t_CATCH(t):
+    r'catch'
+    return t
+
+def t_FINALLY(t):
+    r'finally'
+    return t
+
+def t_THROW(t):
+    r'throw'
+    return t
+
 def t_ECHO(t):
     r'echo'
     return t
@@ -133,19 +225,17 @@ def t_PRINT(t):
     r'print'
     return t
 
+def t_EMPTY(t):
+    r'empty'
+    return t
+
 def t_ARRAY(t):
     r'array'
     return t
 
-def t_VARIABLE(t):
-    r'\$[a-zA-Z_][\w]*' 
+def t_LIST(t):
+    r'list'
     return t
-
-# Regla para cualquier uso inválido de $ (incluye $ suelto, $ con espacio, $ con número, etc.)
-def t_INVALID_VARIABLE(t):
-    r'\$[^a-zA-Z_]\S*'
-    print(f"Lexical error: Invalid variable usage '{t.value}' at line {t.lineno}")
-    t.lexer.skip(len(t.value))
 
 def t_NEWLINE(t):
     r'\n+'
@@ -163,18 +253,6 @@ def t_comments_hashtag(t):
     r'\#(.)*?\n'
     t.lexer.lineno += 1
 
-def t_BOOLEAN(t):
-    r'true|false'
-    return t
-
-def t_NUMBER(t):
-    r'\d+(\.\d+)?((E|e)(\-)?\d+(\.\d+)?)?'
-    return t
-
-def t_ID(t):
-     r'(_|[a-z]|[A-Z])(\w)*'
-     return t
-
 def t_error(t):
     print ("Lexical error: " + str(t.value[0]))
     t.lexer.skip(1)
@@ -189,6 +267,7 @@ def test(data, lexer):
 
 lexer = lex.lex()
 
+ 
 if __name__ == '__main__':
 	if (len(sys.argv) > 1):
 		fin = sys.argv[1]
