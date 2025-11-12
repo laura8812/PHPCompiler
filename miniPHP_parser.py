@@ -1,7 +1,9 @@
 import ply.yacc as yacc
 from miniPHP_lexer_v2 import tokens
+from miniPHP_semantic import analyze, print_semantic_errors, clear_semantic_data
 
-parse_error_reported = False
+# Lista para almacenar todos los errores encontrados
+parse_errors = []
 
 precedence = (
     ('right', 'ELSE'),
@@ -33,7 +35,9 @@ def p_segment(p):
 
 def p_statement_list(p):
     '''statement_list : statement_list statement
-                      | statement'''
+                      | statement_list class_member
+                      | statement
+                      | class_member'''
     if len(p) == 3:
         p[0] = p[1] + [p[2]]
     else:
@@ -46,6 +50,7 @@ def p_statement(p):
                  | while_statement
                  | foreach_statement
                  | function_declaration
+                 | class_declaration
                  | echo_statement
                  | print_statement
                  | block
@@ -93,8 +98,56 @@ def p_print_statement(p):
     p[0] = ('print', p[2])
 
 def p_function_declaration(p):
-    'function_declaration : FUNCTION ID LPAREN parameter_list RPAREN block'
-    p[0] = ('function', p[2], p[4], p[6])
+    '''function_declaration : FUNCTION ID LPAREN parameter_list RPAREN block
+                            | visibility FUNCTION ID LPAREN parameter_list RPAREN block'''
+    if len(p) == 7:
+        p[0] = ('function', p[2], p[4], p[6], 'public')
+    else:
+        p[0] = ('function', p[3], p[5], p[7], p[1])
+
+def p_visibility(p):
+    '''visibility : PUBLIC
+                 | PRIVATE
+                 | PROTECTED'''
+    p[0] = p[1].lower()
+
+def p_class_declaration(p):
+    '''class_declaration : CLASS ID LBLOCK class_member_list RBLOCK
+                         | CLASS ID EXTENDS ID LBLOCK class_member_list RBLOCK'''
+    if len(p) == 6:
+        p[0] = ('class', p[2], None, p[4])
+    else:
+        p[0] = ('class', p[2], p[4], p[6])
+
+def p_class_member_list(p):
+    '''class_member_list : class_member_list class_member
+                         | class_member
+                         | empty'''
+    if len(p) == 3:
+        p[0] = p[1] + [p[2]]
+    elif len(p) == 2 and p[1] is not None:
+        p[0] = [p[1]]
+    else:
+        p[0] = []
+
+def p_class_member(p):
+    '''class_member : visibility VARIABLE SEMICOLON
+                    | visibility FUNCTION ID LPAREN parameter_list RPAREN block
+                    | FUNCTION ID LPAREN parameter_list RPAREN block
+                    | VARIABLE SEMICOLON'''
+    if len(p) == 4:
+        # Puede ser visibility VARIABLE SEMICOLON o VARIABLE SEMICOLON (sin visibilidad)
+        if isinstance(p[1], str) and p[1] in ['public', 'private', 'protected']:
+            p[0] = ('property', p[2], p[1])
+        else:
+            # VARIABLE SEMICOLON sin visibilidad
+            p[0] = ('property', p[1], 'public')
+    elif len(p) == 8:
+        p[0] = ('method', p[3], p[5], p[7], p[1])
+    elif len(p) == 7:
+        p[0] = ('method', p[2], p[4], p[6], 'public')
+    else:
+        p[0] = ('method', p[2], p[4], p[6], 'public')
 
 def p_parameter_list(p):
     '''parameter_list : parameter_list COMMA VARIABLE
@@ -111,6 +164,27 @@ def p_expression_function_call(p):
     '''expression : ID LPAREN argument_list RPAREN
                   | VARIABLE LPAREN argument_list RPAREN'''
     p[0] = ('func_call', p[1], p[3])
+
+def p_expression_method_call(p):
+    '''expression : expression ARROW ID LPAREN argument_list RPAREN
+                  | expression ARROW VARIABLE LPAREN argument_list RPAREN'''
+    method_name = p[3]
+    if isinstance(method_name, str) and method_name.startswith('$'):
+        method_name = method_name[1:]  # Remover $ si es variable
+    p[0] = ('method_call', p[1], method_name, p[5])
+
+def p_expression_new(p):
+    'expression : NEW ID LPAREN argument_list RPAREN'
+    p[0] = ('new', p[2], p[4])
+
+def p_expression_property_access(p):
+    '''expression : expression ARROW ID
+                  | expression ARROW VARIABLE'''
+    p[0] = ('property_access', p[1], p[3])
+
+def p_expression_this(p):
+    'expression : THIS'
+    p[0] = ('this',)
 
 def p_argument_list(p):
     '''argument_list : argument_list COMMA expression
@@ -210,37 +284,79 @@ def p_empty(p):
     pass
 
 def p_error(p):
-    global parse_error_reported
-    if parse_error_reported:
-        return
-
-    parse_error_reported = True
-
+    global parse_errors
+    
     if not p:
-        print("Error sintáctico: fin de archivo inesperado. Falta cerrar un bloque, paréntesis o llave.")
+        error_msg = "Error sintáctico: fin de archivo inesperado. Falta cerrar un bloque, paréntesis o llave."
+        parse_errors.append(("EOF", error_msg))
         return
 
     value = getattr(p, "value", "?")
     lineno = getattr(p, "lineno", "?")
+    error_type = "SINTAXIS"
+    error_msg = ""
 
     if value == "{":
-        print(f"Error sintáctico en la línea {lineno}: falta cerrar paréntesis antes de '{{'.")
+        error_msg = f"Error sintáctico en la línea {lineno}: falta cerrar paréntesis antes de '{{'."
     elif value == "}":
-        print(f"Error sintáctico en la línea {lineno}: llave '}}' sin apertura.")
+        error_msg = f"Error sintáctico en la línea {lineno}: llave '}}' sin apertura."
     elif value == "(":
-        print(f"Error sintáctico en la línea {lineno}: paréntesis sin cierre.")
+        error_msg = f"Error sintáctico en la línea {lineno}: paréntesis sin cierre."
     elif isinstance(value, str) and value.lower() == "function":
-        print(f"Error sintáctico en la línea {lineno}: declaración de función incompleta o sin nombre.")
+        error_msg = f"Error sintáctico en la línea {lineno}: declaración de función incompleta o sin nombre."
     elif value == "?>":
-        print(f"Error sintáctico en la línea {lineno}: cierre de PHP prematuro.")
-    elif value in ["+", "*", "&&", "||", "/", "*"]:
-        print(f"Error sintáctico en la línea {lineno}: operador '{value}' mal ubicado.")
+        error_msg = f"Error sintáctico en la línea {lineno}: cierre de PHP prematuro."
+    elif value in ["+", "*", "&&", "||", "/", "-"]:
+        error_msg = f"Error sintáctico en la línea {lineno}: operador '{value}' mal ubicado."
+    elif value == ";":
+        error_msg = f"Error sintáctico en la línea {lineno}: punto y coma inesperado."
+    elif value == ")":
+        error_msg = f"Error sintáctico en la línea {lineno}: paréntesis de cierre sin apertura."
     else:
-        print(f"Error sintáctico en la línea {lineno}: token inesperado '{value}'.")
+        error_msg = f"Error sintáctico en la línea {lineno}: token inesperado '{value}'."
 
-    raise Exception("Error sintáctico")
+    parse_errors.append((error_type, error_msg, lineno, value))
+    
+    # Continuar el parsing para encontrar más errores
+    # Intentar recuperación: saltar el token problemático
+    parser.errok()
 
 parser = yacc.yacc()
+
+def get_parse_errors():
+    """Retorna la lista de errores encontrados durante el parsing"""
+    return parse_errors
+
+def clear_parse_errors():
+    """Limpia la lista de errores"""
+    global parse_errors
+    parse_errors = []
+
+def print_parse_errors():
+    """Imprime todos los errores encontrados de forma organizada"""
+    global parse_errors
+    if not parse_errors:
+        return
+    
+    print("\n" + "="*60)
+    print(f"REPORTE DE ERRORES SINTÁCTICOS ({len(parse_errors)} error(es) encontrado(s))")
+    print("="*60)
+    
+    for i, error in enumerate(parse_errors, 1):
+        if len(error) == 4:
+            error_type, error_msg, lineno, value = error
+            print(f"\n[{i}] Línea {lineno}: {error_msg}")
+            print(f"    Token: '{value}' | Tipo: {error_type}")
+        elif len(error) == 2:
+            error_type, error_msg = error
+            print(f"\n[{i}] {error_msg}")
+            print(f"    Tipo: {error_type}")
+        else:
+            print(f"\n[{i}] {error}")
+    
+    print("\n" + "="*60)
+    print(f"Total de errores: {len(parse_errors)}")
+    print("="*60 + "\n")
 
 if __name__ == '__main__':
 
@@ -254,13 +370,21 @@ if __name__ == '__main__':
     with open(fin, 'r', encoding='utf-8') as f:
         data = f.read()
 
-    parse_error_reported = False
+    clear_parse_errors()
 
     try:
-        parser.parse(data, tracking=True)
-        if parse_error_reported:
-            raise Exception("Error sintáctico previo detectado.")
+        result = parser.parse(data, tracking=True)
+        if parse_errors:
+            print_parse_errors()
+            sys.exit(1)
         else:
-            print("Amiguito, tengo el placer de informar que Tu parser reconocio correctamente todo el código PHP")
+            print("Parser: El código PHP fue reconocido correctamente sin errores sintácticos.")
+            print(f"Árbol de sintaxis generado exitosamente.")
+            clear_semantic_data()
+            analyze(result)
+            print_semantic_errors()
     except Exception as e:
-        print("Error sintáctico:", str(e))
+        if parse_errors:
+            print_parse_errors()
+        print(f"\nError durante el parsing: {str(e)}")
+        sys.exit(1)

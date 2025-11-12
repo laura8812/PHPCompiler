@@ -17,6 +17,13 @@ tokens = (
     "PRINT",
     "ARRAY",
     "BOOLEAN",
+    "CLASS",
+    "PUBLIC",
+    "PRIVATE",
+    "PROTECTED",
+    "NEW",
+    "THIS",
+    "EXTENDS",
 
     # Operadores y símbolos
     "INCREMENT",
@@ -44,6 +51,7 @@ tokens = (
     "AND",
     "OR",
     "DOT",
+    "ARROW",
 
     # Elementos básicos
     "VARIABLE",
@@ -78,6 +86,7 @@ t_NOTISEQUAL = r'!='
 t_AND = r'&&'
 t_OR = r'\|\|'
 t_DOT = r'\.'
+t_ARROW = r'->'
 
 def t_STRING(t):
     r'("([^\\\n]|(\\.))*?"|\'([^\\\n]|(\\.))*?\')'
@@ -135,6 +144,34 @@ def t_PRINT(t):
 
 def t_ARRAY(t):
     r'array'
+    return t
+
+def t_CLASS(t):
+    r'class'
+    return t
+
+def t_PUBLIC(t):
+    r'public'
+    return t
+
+def t_PRIVATE(t):
+    r'private'
+    return t
+
+def t_PROTECTED(t):
+    r'protected'
+    return t
+
+def t_NEW(t):
+    r'new'
+    return t
+
+def t_THIS(t):
+    r'this'
+    return t
+
+def t_EXTENDS(t):
+    r'extends'
     return t
 
 def t_VARIABLE(t):
