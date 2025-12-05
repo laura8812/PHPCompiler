@@ -84,6 +84,13 @@ def analyze(node):
     elif node_type == "bool":
         return "bool"
 
+    # ---------------------- ARRAY ----------------------
+    elif node_type == "array":
+        elements = node[1]
+        for elem in elements:
+            analyze(elem)
+        return "array"
+    
     # ---------------------- OPERACIONES ----------------------
     elif node_type == "binop":
         op, left, right = node[1], node[2], node[3]
